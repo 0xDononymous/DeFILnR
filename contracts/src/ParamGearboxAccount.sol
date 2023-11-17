@@ -3,12 +3,14 @@ pragma solidity 0.8.19;
 
 import { AxiomV2Client } from './AxiomV2Client.sol';
 // import { IERC20 } from '@openzeppelin-contracts/token/ERC20/IERC20.sol';
-import { Ownable } from '@openzeppelin-contracts/access/Ownable.sol';
+import { Ownable } from 'openzeppelin-contracts/contracts/access/Ownable.sol';
 import { IAxiomV2Input } from './interfaces/IAxiomV2Input.sol';
 import { IAxiomV2Query } from './interfaces/IAxiomV2Query.sol';
 // import { AxiomV2Decoder } from './libraries/AxiomV2Decoder.sol';
 import { ICreditFacadeV3 } from './interfaces/ICreditFacadeV3.sol';
-import {MultiCallBuilder} from "@core-v3/test/lib/MultiCallBuilder.sol";
+import { ICreditFacadeV3Multicall } from './interfaces/ICreditFacadeV3Multicall.sol';
+import { MultiCallBuilder } from 'core-v3/test/lib/MultiCallBuilder.sol';
+import { MultiCall } from "@gearbox-protocol/core-v2/contracts/libraries/MultiCall.sol";
 
 contract ParamGearboxAccount is AxiomV2Client, Ownable {
     event OpenAccount(
@@ -36,6 +38,7 @@ contract ParamGearboxAccount is AxiomV2Client, Ownable {
     uint64 public callbackSourceChainId;
     bytes32 public axiomCallbackQuerySchema;
     address public creditFacadeV3Addr;
+    ICreditFacadeV3 public creditFacade;
     mapping(address => bool) public querySubmitted;
     mapping(address => bool) public hasClaimed;
 
@@ -59,7 +62,7 @@ contract ParamGearboxAccount is AxiomV2Client, Ownable {
         // axiomCallbackCallerAddr = address(this);
         axiomCallbackQuerySchema = _axiomCallbackQuerySchema;
         creditFacadeV3Addr = _creditFacadeV3Addr;
-        ICreditFacadeV3(_creditFacadeV3Addr);
+        creditFacade = ICreditFacadeV3(_creditFacadeV3Addr);
     }
 
 
@@ -158,34 +161,29 @@ contract ParamGearboxAccount is AxiomV2Client, Ownable {
     function _openCreditAccount(
         uint256 amount,
         address callerAddr
-    ) internal {
-        uint16 leverageFactor = 100;
-        
-        // Open account for user
-        ICreditFacadeV3(creditFacadeV3Addr).openCreditAccount(
-            amount,
-            callerAddr,
-            leverageFactor,
-            0
-        );
-
+    ) public returns (address) { // FIXME: change to internal
         amount = 100;
+        uint16 leverageFactor = 100;
         uint256 debt = (amount * leverageFactor) / 100; // LEVERAGE_DECIMALS; // F:[FA-5]
 
+        // Open account for user
         return creditFacade.openCreditAccount(
-            onBehalfOf,
+            callerAddr,
             MultiCallBuilder.build(
                 MultiCall({
                     target: address(creditFacade),
                     callData: abi.encodeCall(ICreditFacadeV3Multicall.increaseDebt, (debt))
-                }),
-                MultiCall({
+                })
+            ),
+            0
+        );
+
+        /* 
+        MultiCall({
                     target: address(creditFacade),
                     callData: abi.encodeCall(ICreditFacadeV3Multicall.addCollateral, (underlying, amount))
                 })
-            ),
-            referralCode
-        );
+         */
     }
 
     function _validateAxiomV2Call(

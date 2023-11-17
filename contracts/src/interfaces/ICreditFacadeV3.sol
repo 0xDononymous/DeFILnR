@@ -1,7 +1,7 @@
 
 pragma solidity 0.8.19;
 
-import {MultiCall} from "../../lib/core-v2/contracts/libraries/MultiCall.sol";
+import {MultiCall} from "core-v3/credit/CreditFacadeV3.sol";
 
 interface ICreditFacadeV3 {
     function openCreditAccount(address onBehalfOf, MultiCall[] calldata calls, uint256 referralCode)
