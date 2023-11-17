@@ -158,13 +158,31 @@ contract ParamGearboxAccount is AxiomV2Client, Ownable {
         address callerAddr
     ) internal {
         uint16 leverageFactor = 100;
-        amount = 100;
+        
         // Open account for user
         IGearboxAccount(gearboxCreditManagerAddr).openCreditAccount(
             amount,
             callerAddr,
             leverageFactor,
             0
+        );
+
+        amount = 100;
+        uint256 debt = (amount * leverageFactor) / 100; // LEVERAGE_DECIMALS; // F:[FA-5]
+
+        return creditFacade.openCreditAccount(
+            onBehalfOf,
+            MultiCallBuilder.build(
+                MultiCall({
+                    target: address(creditFacade),
+                    callData: abi.encodeCall(ICreditFacadeV3Multicall.increaseDebt, (debt))
+                }),
+                MultiCall({
+                    target: address(creditFacade),
+                    callData: abi.encodeCall(ICreditFacadeV3Multicall.addCollateral, (underlying, amount))
+                })
+            ),
+            referralCode
         );
     }
 
