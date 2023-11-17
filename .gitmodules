@@ -1,0 +1,3 @@
+[submodule "contracts/lib/core-v2"]
+	path = contracts/lib/core-v2
+	url = https://github.com/Gearbox-protocol/core-v2

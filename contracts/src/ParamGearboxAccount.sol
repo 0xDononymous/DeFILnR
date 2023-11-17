@@ -7,7 +7,9 @@ import { Ownable } from '@openzeppelin-contracts/access/Ownable.sol';
 import { IAxiomV2Input } from './interfaces/IAxiomV2Input.sol';
 import { IAxiomV2Query } from './interfaces/IAxiomV2Query.sol';
 // import { AxiomV2Decoder } from './libraries/AxiomV2Decoder.sol';
-import { IGearboxAccount } from './interfaces/IGearboxAccount.sol';
+import { ICreditFacadeV3 } from './interfaces/ICreditFacadeV3.sol';
+import {MultiCallBuilder} from "@core-v3/test/lib/MultiCallBuilder.sol";
+
 contract ParamGearboxAccount is AxiomV2Client, Ownable {
     event OpenAccount(
 
@@ -33,7 +35,7 @@ contract ParamGearboxAccount is AxiomV2Client, Ownable {
 
     uint64 public callbackSourceChainId;
     bytes32 public axiomCallbackQuerySchema;
-    address public gearboxCreditManagerAddr;
+    address public creditFacadeV3Addr;
     mapping(address => bool) public querySubmitted;
     mapping(address => bool) public hasClaimed;
 
@@ -51,13 +53,13 @@ contract ParamGearboxAccount is AxiomV2Client, Ownable {
         address _axiomV2QueryAddress,
         uint64 _callbackSourceChainId,
         bytes32 _axiomCallbackQuerySchema,
-        address _gearboxCreditManagerAddr
+        address _creditFacadeV3Addr
     ) AxiomV2Client(_axiomV2QueryAddress) {
         callbackSourceChainId = _callbackSourceChainId;
         // axiomCallbackCallerAddr = address(this);
         axiomCallbackQuerySchema = _axiomCallbackQuerySchema;
-        gearboxCreditManagerAddr = _gearboxCreditManagerAddr;
-        IGearboxAccount(_gearboxCreditManagerAddr);
+        creditFacadeV3Addr = _creditFacadeV3Addr;
+        ICreditFacadeV3(_creditFacadeV3Addr);
     }
 
 
@@ -69,9 +71,9 @@ contract ParamGearboxAccount is AxiomV2Client, Ownable {
     }
 
 
-    function updateCreditManagerAddr(address _gearboxCreditManagerAddr) public onlyOwner {
-        gearboxCreditManagerAddr = _gearboxCreditManagerAddr;
-        emit CreditManagerAddressUpdated(_gearboxCreditManagerAddr);
+    function updateCreditFacadeV3Addr(address _creditFacadeV3Addr) public onlyOwner {
+        creditFacadeV3Addr = _creditFacadeV3Addr;
+        emit CreditManagerAddressUpdated(_creditFacadeV3Addr);
     }
 
 /*     function claimAirdrop(
@@ -160,7 +162,7 @@ contract ParamGearboxAccount is AxiomV2Client, Ownable {
         uint16 leverageFactor = 100;
         
         // Open account for user
-        IGearboxAccount(gearboxCreditManagerAddr).openCreditAccount(
+        ICreditFacadeV3(creditFacadeV3Addr).openCreditAccount(
             amount,
             callerAddr,
             leverageFactor,

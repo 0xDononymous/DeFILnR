@@ -5,6 +5,8 @@ import { Test, console } from 'forge-std/Test.sol';
 import { ParamGearboxAccount } from '../src/ParamGearboxAccount.sol';
 import { IAxiomV2Query } from '../src/interfaces/IAxiomV2Query.sol';
 import { IAccountFactoryGetters } from '../src/interfaces/IAccountFactoryGetters.sol';
+import { ICreditFacadeV3 } from '../src/interfaces/ICreditFacadeV3.sol';
+
 contract ParamGearboxAccountTest is Test {
     address public constant AXIOM_V2_QUERY_GOERLI_ADDR = 0x8DdE5D4a8384F403F888E1419672D94C570440c9;
     address public constant GEARBOX_V2_ADDRPROVIDER_GOERLI_ADDR = 0x95f4cea53121b8A2Cb783C6BFB0915cEc44827D3;
@@ -37,8 +39,9 @@ contract ParamGearboxAccountTest is Test {
 
     function test_openCreditAccount() public {
         // vm.prank(msg.sender);
-        accountFactoryGetters.countCreditAccounts();
+        // accountFactoryGetters.countCreditAccounts();
         // paramGearboxAccount._openCreditAccount(100, msg.sender);
+
     }
     /* function debugDataQuery(bytes calldata dataQuery, uint256 a, uint256 b) public pure returns (bytes32) {
         return bytes32(dataQuery[a:b]);
