@@ -35,8 +35,8 @@ export default function Home({ searchParams }: PageProps) {
       return <LinkButton
         label="Generate Proof"
         //TODO: Link membership.sol
-        // href={"/check?" + forwardSearchParams(searchParams)}
-        href={"/fail?" + forwardSearchParams(searchParams)}
+        href={"/check?" + forwardSearchParams(searchParams)}
+        // href={"/fail?" + forwardSearchParams(searchParams)}
       />;
     }
     return <ConnectWallet connected={connected} />;

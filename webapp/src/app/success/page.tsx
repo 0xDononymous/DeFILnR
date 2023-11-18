@@ -23,9 +23,10 @@ export default async function Success({ searchParams }: PageProps) {
   const connected = searchParams?.connected as string ?? "";
 
   const renderButton = () => {
+
     if (connected) {
       return <LinkButton
-        label="Open a CA on Gearbox"
+        label="✨✨✨ Let Axiom Wizard to open a Degen Account for you ✨✨✨"
         //TODO: Link membership.sol
         href={"/check?" + forwardSearchParams(searchParams)}
       />;
@@ -36,17 +37,13 @@ export default async function Success({ searchParams }: PageProps) {
   return (
     <>
       <Title>
-        Welcome to DeFi Loyalty and Reward System
+        You are a Degen!!! 
       </Title>
       <div className="text-left">
-        1. Connect wallet <br />
-        2. Generate the proof of your loyalty tier and open a CA with better leverage flexibility on Gearbox <br />
-        <br />
         <></>
         <></>
         Proof is generated! <br />
-        You are not yet a Degen <br />
-        You borrowing amount limitation: 5 WETH
+        You borrowing amount limitation: 100 WETH
       </div> 
       {renderButton()}
     </>

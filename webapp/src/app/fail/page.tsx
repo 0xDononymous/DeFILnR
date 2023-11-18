@@ -36,14 +36,9 @@ export default async function Success({ searchParams }: PageProps) {
   return (
     <>
       <Title>
-        Welcome to DeFi Loyalty and Reward System
+      You are not yet a Degen!!!
       </Title>
       <div className="text-left">
-        1. Connect wallet <br />
-        2. Generate the proof of your loyalty tier and open a CA with better leverage flexibility on Gearbox <br />
-        <br />
-        <></>
-        <></>
         Proof is generated! <br />
         You are not yet a Degen <br />
         You borrowing amount limitation: 5 WETH
