@@ -6,9 +6,9 @@ import { Gater } from '../src/Gater.sol';
 import { IAxiomV2Query } from '../src/interfaces/IAxiomV2Query.sol';
 // import { IAccountFactoryGetters } from '../src/interfaces/IAccountFactoryGetters.sol';
 import { ICreditFacadeV3 } from '../src/interfaces/ICreditFacadeV3.sol';
-import { ICreditFacadeV3 } from '../src/interfaces/ICreditFacadeV3.sol';
-
+import { ICreditFacadeV3Multicall } from '../src/interfaces/ICreditFacadeV3Multicall.sol';
 import { MultiCallBuilder } from 'core-v3/test/lib/MultiCallBuilder.sol';
+import { MultiCall } from "@gearbox-protocol/core-v2/contracts/libraries/MultiCall.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract ParamGearboxAccountTest is Test {
@@ -47,12 +47,15 @@ contract ParamGearboxAccountTest is Test {
         // tokenTestSuite.mint(underlying, USER, creditAccountAmount);
         address randomAddress = vm.addr(uint256(keccak256("RandomSeed")));
         vm.startPrank(randomAddress);
+        
         uint256 amount = 100;
+        uint16 leverageFactor = 100;
         address weth = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
+        //approve(IERC20(weth), randomAddress, address(creditManager));
 
-        address creditAccount = gater._openCreditAccount(amount, randomAddress);
+        address creditAccount = gater._openCreditAccount(amount, randomAddress, leverageFactor);
         IERC20(weth).approve(address(creditAccount), 1000000e18);
-
+        
         vm.stopPrank();
 
         // balance = IERC20(underlying).balanceOf(creditAccount);
@@ -65,5 +68,4 @@ contract ParamGearboxAccountTest is Test {
     /* function debugDataQuery(bytes calldata dataQuery, uint256 a, uint256 b) public pure returns (bytes32) {
         return bytes32(dataQuery[a:b]);
     } */
-
 }

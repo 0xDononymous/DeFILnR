@@ -8,4 +8,5 @@ interface ICreditFacadeV3 {
         external
         payable
         returns (address creditAccount);
+    function multicall(address creditAccount, MultiCall[] calldata calls) external payable;
 }

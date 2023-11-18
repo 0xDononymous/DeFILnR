@@ -11,9 +11,12 @@ import { ICreditFacadeV3 } from './interfaces/ICreditFacadeV3.sol';
 import { ICreditFacadeV3Multicall } from './interfaces/ICreditFacadeV3Multicall.sol';
 import { MultiCallBuilder } from 'core-v3/test/lib/MultiCallBuilder.sol';
 import { MultiCall } from "@gearbox-protocol/core-v2/contracts/libraries/MultiCall.sol";
-import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract Gater is AxiomV2Client, Ownable {
+    // save for future reference
+    mapping (address => uint16) public leverageFactors;
+    
     event OpenAccount(
 
     );
@@ -161,18 +164,17 @@ contract Gater is AxiomV2Client, Ownable {
 
     function _openCreditAccount(
         uint256 amount,
-        address callerAddr
-    ) public returns (address) { // FIXME: change to internal
-        amount = 100;
-        uint16 leverageFactor = 100;
+        address callerAddr,
+        uint16 leverageFactor
+    ) public returns (address) { // FIXME: change to internal 
+        leverageFactors[callerAddr] = leverageFactor; // save the calculated leverage factor for future reference
+        // uint16 leverageFactor = 100;
         uint256 debt = (amount * leverageFactor) / 100; // LEVERAGE_DECIMALS; // F:[FA-5]
-        address weth = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
         
         // Open account for user
         return creditFacade.openCreditAccount(
             callerAddr,
             MultiCallBuilder.build(
-                
             ),
             0
         );
@@ -189,6 +191,15 @@ contract Gater is AxiomV2Client, Ownable {
                     callData: abi.encodeCall(ICreditFacadeV3Multicall.addCollateral, (underlying, amount))
                 })
          */
+    } 
+
+    function _multicall(address creditAccount, MultiCall[] calldata calls) external payable {
+        address weth = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2; // FIXME
+        creditFacade.multicall(creditAccount, calls);
+    }
+
+    function getCreditFacadeAddr() public view returns (address) {
+        return creditFacadeV3Addr;
     }
 
     function _validateAxiomV2Call(
