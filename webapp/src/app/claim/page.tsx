@@ -14,27 +14,25 @@ interface PageProps {
 interface Params {
   connected: string;
   facadeAddress: string;
-  log: string[];
   txHash: string[];
-  blockNumber: number[];
-  logIdx: number[];
+  blockNumber: string[];
+  logIdx: string[];
 }
 
 interface SearchParams {
   connected: any;
   facadeAddress: any;
   txHash: any;
-  blockNumber: any;
-  logIdx: any
+  blockNumber: string[];
+  logIdx: string[];
 }
 
 export default async function Claim({ searchParams }: PageProps) {
-  console.log("tttesttt", searchParams)
   const connected = searchParams?.connected;
-  const txHash = searchParams?.txHash;
-  const blockNumber = searchParams?.blockNumber;
-  const logIdx = searchParams?.logIdx;
   const facadeAddress = searchParams?.facadeAddress;
+  const txHash = searchParams?.txHash;
+  let blockNumber_str = searchParams?.blockNumber;
+  let logIdx_str = searchParams?.logIdx;
 
   let txs = [];
   let txIdxs = [];
@@ -46,12 +44,27 @@ export default async function Claim({ searchParams }: PageProps) {
     txIdxs.push(tx.transactionIndex);
   }
 
-  const inputs: CircuitInputs = {
+  let blockNumber = [];
+  let logIdx = [];
+  for (let i = 0; i < txHash.length; i++) {
+    blockNumber[i] = parseInt(blockNumber_str[i]);
+    logIdx[i] = parseInt(logIdx_str[i]);
+  }
+
+
+  console.log("test",  {
     provingAddress: connected,
     facadeAddress: facadeAddress,
     blockNumber: blockNumber,
     txIdx: txIdxs,
     logIdx: logIdx,
+  })
+  const inputs: CircuitInputs = {
+    "provingAddress": connected,
+    "facadeAddress": facadeAddress,
+    "blockNumber": blockNumber,
+    "txIdx": txIdxs,
+    "logIdx": logIdx,
   }
 
   const callback: AxiomV2Callback = {

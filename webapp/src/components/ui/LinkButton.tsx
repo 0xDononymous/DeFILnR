@@ -25,7 +25,6 @@ export function LinkButtonQuery({ label, pathname, data, selected, disabled }:{
   selected?: boolean,
   disabled?: boolean,
 }) {
-  console.log("tttesttt", data.blockNumber);
   return (
     <Link 
       href={{
