@@ -2,14 +2,14 @@
 pragma solidity 0.8.19;
 
 import { Test, console } from 'forge-std/Test.sol';
-import { ParamGearboxAccount } from '../src/ParamGearboxAccount.sol';
+import { Gater } from '../src/Gater.sol';
 import { IAxiomV2Query } from '../src/interfaces/IAxiomV2Query.sol';
 // import { IAccountFactoryGetters } from '../src/interfaces/IAccountFactoryGetters.sol';
 import { ICreditFacadeV3 } from '../src/interfaces/ICreditFacadeV3.sol';
 import { ICreditFacadeV3 } from '../src/interfaces/ICreditFacadeV3.sol';
 
 import { MultiCallBuilder } from 'core-v3/test/lib/MultiCallBuilder.sol';
-import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract ParamGearboxAccountTest is Test {
     address public constant AXIOM_V2_QUERY_GOERLI_ADDR = 0x8DdE5D4a8384F403F888E1419672D94C570440c9;
@@ -21,11 +21,11 @@ contract ParamGearboxAccountTest is Test {
     // bytes public constant TEST_CALLBACK = hex"51b17b290000000000000000000000000000000000000000000000000000000000000005000000000000000000000000d780ba6903fecebede0d7dfcc0a558227f9eadc200000000000000000000000000000000000000000000000000000000000000002f3a19a5c1a80ef8c5f6ca793dacff43891949ff694eafa80f5ab88f74adf97e00000000000000000000000000000000000000000000000000000000000000c000000000000000000000000000000000000000000000000000000000000001400000000000000000000000000000000000000000000000000000000000000003c42079f94a6350d7e6235f29174924f928cc2ac818eb64fed8004e115fbcca67000000000000000000000000b392448932f6ef430555631f765df0dfae34eff3000000000000000000000000000000000000000000000000000000000092b34a0000000000000000000000000000000000000000000000000000000000000014b392448932f6ef430555631f765df0dfae34eff3000000000000000000000000";
     
     bytes32[] public callbackData;
-    ParamGearboxAccount paramGearboxAccount;
+    Gater gater;
     // IAccountFactoryGetters accountFactoryGetters;
     ICreditFacadeV3 creditFacadeV3;
     function setUp() public {
-        paramGearboxAccount = new ParamGearboxAccount(
+        gater = new Gater(
             AXIOM_V2_QUERY_GOERLI_ADDR, 
             5, 
             CALLBACK_QUERY_SCHEMA,
@@ -35,7 +35,7 @@ contract ParamGearboxAccountTest is Test {
 
     function test_updateCreditFacadeV3Addr() public {
         address newCreditManager = 0x8DdE5D4a8384F403F888E1419672D94C570440c9; // FIXME: change to new address
-        paramGearboxAccount.updateCreditFacadeV3Addr(newCreditManager);
+        gater.updateCreditFacadeV3Addr(newCreditManager);
     }
 
     function test_isCorrectProvider() public {
@@ -50,7 +50,7 @@ contract ParamGearboxAccountTest is Test {
         uint256 amount = 100;
         address weth = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
 
-        address creditAccount = paramGearboxAccount._openCreditAccount(amount, randomAddress);
+        address creditAccount = gater._openCreditAccount(amount, randomAddress);
         IERC20(weth).approve(address(creditAccount), 1000000e18);
 
         vm.stopPrank();

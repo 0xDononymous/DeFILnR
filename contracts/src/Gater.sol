@@ -13,7 +13,7 @@ import { MultiCallBuilder } from 'core-v3/test/lib/MultiCallBuilder.sol';
 import { MultiCall } from "@gearbox-protocol/core-v2/contracts/libraries/MultiCall.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-contract ParamGearboxAccount is AxiomV2Client, Ownable {
+contract Gater is AxiomV2Client, Ownable {
     event OpenAccount(
 
     );
