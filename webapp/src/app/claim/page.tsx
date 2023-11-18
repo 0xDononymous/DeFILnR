@@ -12,18 +12,22 @@ interface PageProps {
 }
 
 interface Params {
-  slug: string;
+  connected: string;
+  txHash: string;
+  blockNumber: string;
+  logIdx: string;
 }
 
 interface SearchParams {
   [key: string]: string | string[] | undefined;
 }
 
-export default async function Claim({ searchParams }: PageProps) {
-  const connected = searchParams?.connected as string ?? "";
-  const txHash = searchParams?.txHash as string ?? "";
-  const blockNumber = searchParams?.blockNumber as string ?? "";
-  const logIdx = searchParams?.logIdx as string ?? "";
+export default async function Claim({ params }: PageProps) {
+  console.log("testtt", params)
+  const connected = params?.connected as string ?? "";
+  const txHash = params?.txHash as string ?? "";
+  const blockNumber = params?.blockNumber as string ?? "";
+  const logIdx = params?.logIdx as string ?? "";
 
   const tx = await publicClient.getTransaction({
     hash: txHash as `0x${string}`,
@@ -35,6 +39,7 @@ export default async function Claim({ searchParams }: PageProps) {
     txIdx: Number(txIdx),
     logIdx: Number(logIdx),
   }
+
   const callback: AxiomV2Callback = {
     target: Constants.AUTO_AIRDROP_ADDR as `0x${string}`,
     extraData: bytes32(connected),

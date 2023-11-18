@@ -1,4 +1,4 @@
-import LinkButton from "@/components/ui/LinkButton";
+import { LinkButton, LinkButtonQuery }  from "@/components/ui/LinkButton";
 import Title from "@/components/ui/Title";
 // import { findMostRecentUniswapTx } from "@/lib/parseRecentTx";
 import { fetchGearBoxTx } from "@/lib/query";
@@ -23,7 +23,7 @@ export default async function Check({ searchParams }: PageProps) {
 
   // Find the user's uniswap transaction with the `Swap` event
   // const uniswapTx = await findMostRecentUniswapTx(connected);
-  const gearboxTx = await fetchGearBoxTx(MOCK_ACCOUNT_HAVE_TXHISTORY_WITH_GEARBOX);
+  let gearboxTx = await fetchGearBoxTx(MOCK_ACCOUNT_HAVE_TXHISTORY_WITH_GEARBOX);
   
   const renderNotEligible = () => {
     return (
@@ -45,7 +45,8 @@ export default async function Check({ searchParams }: PageProps) {
     const txHash = gearboxTx?.txHash;
     const blockNumber = gearboxTx?.blockNumber;
     const logIdx = gearboxTx?.logIdx;
-
+    gearboxTx.connected = connected;
+    
     if (txHash === undefined || blockNumber === undefined || logIdx === undefined) {
       return renderNotEligible();
     }
@@ -55,14 +56,10 @@ export default async function Check({ searchParams }: PageProps) {
         <div className="text-center">
           {"Congratulations! You're eligible for the UselessToken airdrop."}
         </div>
-        <LinkButton
+        <LinkButtonQuery
           label="Build Axiom proof params"
-          href={"/claim?" + new URLSearchParams({
-            connected,
-            txHash,
-            blockNumber: blockNumber.toString(),
-            logIdx: logIdx.toString(),
-          })}
+          pathname='/claim'
+          data={gearboxTx}
         />
       </>
     )

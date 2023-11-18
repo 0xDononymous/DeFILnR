@@ -1,6 +1,6 @@
 import MainLayout from '@/components/layout/MainLayout'
 import ConnectWallet from '@/components/ui/ConnectWallet'
-import LinkButton from '@/components/ui/LinkButton'
+import { LinkButton } from '@/components/ui/LinkButton'
 import Title from '@/components/ui/Title'
 import { forwardSearchParams } from '@/lib/utils'
 import Image from 'next/image'
