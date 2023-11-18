@@ -11,5 +11,7 @@ export const Constants = Object.freeze({
     "0xc42079f94a6350d7e6235f29174924f928cc2ac818eb64fed8004e115fbcca67",
   ELIGIBLE_BLOCK_HEIGHT: 9000000,
 
-  GEARBOX_RPC: "https://anvil.gearbox.foundation/forks/a52887fd-1a8e-41f2-8188-0f3628003e52" 
+  GEARBOX_RPC: "https://anvil.gearbox.foundation/forks/a52887fd-1a8e-41f2-8188-0f3628003e52",
+  manager: "0xf409B587Bd0b9baC4DF791117F0cbdA424c195e1",
+  gater: "0xC179fAfEEd540E5DA8141855bc82C7578E974dF5"
 });
