@@ -37,13 +37,28 @@ export default async function Home({ searchParams }: PageProps) {
   return (
     <>
       <Title>
-        Autonomous Airdrop
+        DeFi Loyalty and Reward System
       </Title>
-      <div className="text-center">
-        Anyone who has used <Link href="https://app.uniswap.org/swap" target="_blank">Uniswap</Link> (swapping a token for a token that is <b>not</b> ETH) on Goerli testnet
-        after Goerli block 9000000 is eligible for an airdrop of a newly deployed test token called UselessToken. You may need to wait a few minutes
-        after executing your swap for the indexer to pick it up.
-      </div>
+      <div className="text-left">
+        1. Connect wallet <br />
+        2. Enter your preferred leverage factor and amount <br />
+        3. Generate the proof and open a credit account on Gearbox <br />
+        <br />
+        <br />
+        Leverage Factor *
+        <input
+          type="text"
+          className="mx-2 p-1 border border-gray-300 rounded"
+        /> <br /><br />
+        🚨 Rule: holding X ETH for 20 days get to set * X the max <br />
+        <br /><br /><br />
+        Amount =
+        <input
+          type="text"
+          className="mx-2 p-1 border border-gray-300 rounded"
+        />
+      </div> ETH
+      🚨 Make sure the wallet balance is enough for the amount
       {renderButton()}
     </>
   )
