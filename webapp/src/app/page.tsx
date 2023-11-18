@@ -33,44 +33,24 @@ export default function Home({ searchParams }: PageProps) {
   const renderButton = () => {
     if (connected) {
       return <LinkButton
-        label="Check Eligibility"
-        href={"/check?" + forwardSearchParams(searchParams)}
+        label="Generate Proof"
+        //TODO: Link membership.sol
+        // href={"/check?" + forwardSearchParams(searchParams)}
+        href={"/fail?" + forwardSearchParams(searchParams)}
       />;
     }
     return <ConnectWallet connected={connected} />;
-  }
+  } 
 
   return (
     <>
       <Title>
-        DeFi Loyalty and Reward System
+        Welcome to DeFi Loyalty and Reward System
       </Title>
       <div className="text-left">
         1. Connect wallet <br />
-        2. Enter your preferred leverage factor and amount <br />
-        3. Generate the proof and open a credit account on Gearbox <br />
+        2. Generate the proof of your loyalty tier and open a CA with better leverage flexibility on Gearbox <br />
         <br />
-        <br />
-        Leverage Factor *
-        <input
-          value={leverageFactor}
-          onChange={(e) => {
-            if (!e.target.value) setLeverageFactor(0);
-            setLeverageFactor(parseInt(e.target.value))
-          }}
-          type="text"
-          className="mx-2 p-1 border border-gray-300 rounded"
-        /> <br /><br />
-        🚨 Rule: holding X ETH for 20 days get to set * X the max <br />
-        <br /><br /><br />
-        Amount =
-        <input
-          type="text"
-          className="mx-2 p-1 border border-gray-300 rounded"
-        />
-        <br /><br />
-        ETH
-        🚨 Make sure the wallet balance is enough for the amount
       </div> 
       {renderButton()}
     </>

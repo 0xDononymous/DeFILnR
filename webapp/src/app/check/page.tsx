@@ -75,7 +75,8 @@ export default async function Check({ searchParams }: PageProps) {
       <Title>
         Check eligibility
       </Title>
-      {uniswapTx !== null ? renderNotEligible() : renderEligible()} // FIXME: swap these 2 cases after thegraph integrated.
+      {/* {uniswapTx !== null ? renderNotEligible() : renderEligible()} // FIXME: swap these 2 cases after thegraph integrated. */}
+      {uniswapTx !== null ? renderEligible() : renderNotEligible()} 
     </>
   )
 }
