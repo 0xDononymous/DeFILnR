@@ -17,10 +17,12 @@ interface SearchParams {
 }
 
 const MOCK_ACCOUNT_HAVE_TXHISTORY_WITH_GEARBOX = '0xf13df765f3047850Cede5aA9fDF20a12A75f7F70';
+const MOCK_GEARBOX_FACADE_ADDR = '0x15A43dbcD8dBc094f7866c2F458cAb68c35BBe16';
 
 export default async function Check({ searchParams }: PageProps) {
-  const connected = searchParams?.connected as string ?? "";
-
+  // const connected = searchParams?.connected as string ?? "";
+  const connected = MOCK_ACCOUNT_HAVE_TXHISTORY_WITH_GEARBOX;
+  const facadeAddress = MOCK_GEARBOX_FACADE_ADDR;
   // Find the user's uniswap transaction with the `Swap` event
   // const uniswapTx = await findMostRecentUniswapTx(connected);
   let gearboxTx = await fetchGearBoxTx(MOCK_ACCOUNT_HAVE_TXHISTORY_WITH_GEARBOX);
@@ -41,12 +43,12 @@ export default async function Check({ searchParams }: PageProps) {
 
   const renderEligible = () => {
     // console.log(gearboxTx?.transactionHash);
-    const log = gearboxTx?.log;
     const txHash = gearboxTx?.txHash;
     const blockNumber = gearboxTx?.blockNumber;
     const logIdx = gearboxTx?.logIdx;
     gearboxTx.connected = connected;
-    
+    gearboxTx.facadeAddress = facadeAddress;
+
     if (txHash === undefined || blockNumber === undefined || logIdx === undefined) {
       return renderNotEligible();
     }

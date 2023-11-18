@@ -13,31 +13,45 @@ interface PageProps {
 
 interface Params {
   connected: string;
-  txHash: string;
-  blockNumber: string;
-  logIdx: string;
+  facadeAddress: string;
+  log: string[];
+  txHash: string[];
+  blockNumber: number[];
+  logIdx: number[];
 }
 
 interface SearchParams {
-  [key: string]: string | string[] | undefined;
+  connected: any;
+  facadeAddress: any;
+  txHash: any;
+  blockNumber: any;
+  logIdx: any
 }
 
-export default async function Claim({ params }: PageProps) {
-  console.log("testtt", params)
-  const connected = params?.connected as string ?? "";
-  const txHash = params?.txHash as string ?? "";
-  const blockNumber = params?.blockNumber as string ?? "";
-  const logIdx = params?.logIdx as string ?? "";
+export default async function Claim({ searchParams }: PageProps) {
+  console.log("tttesttt", searchParams)
+  const connected = searchParams?.connected;
+  const txHash = searchParams?.txHash;
+  const blockNumber = searchParams?.blockNumber;
+  const logIdx = searchParams?.logIdx;
+  const facadeAddress = searchParams?.facadeAddress;
 
-  const tx = await publicClient.getTransaction({
-    hash: txHash as `0x${string}`,
-  });
-  const txIdx = tx.transactionIndex.toString();
+  let txs = [];
+  let txIdxs = [];
+  for (let i = 0; i < txHash.length; i++) {
+    const tx = await publicClient.getTransaction({
+      hash: txHash[i] as `0x${string}`,
+    });
+    txs.push(tx);
+    txIdxs.push(tx.transactionIndex);
+  }
 
   const inputs: CircuitInputs = {
-    blockNumber: Number(blockNumber),
-    txIdx: Number(txIdx),
-    logIdx: Number(logIdx),
+    provingAddress: connected,
+    facadeAddress: facadeAddress,
+    blockNumber: blockNumber,
+    txIdx: txIdxs,
+    logIdx: logIdx,
   }
 
   const callback: AxiomV2Callback = {
