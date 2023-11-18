@@ -62,5 +62,34 @@ async function fetchOpenCreditAccounts(address: string): Promise<any> {
   }
 }
 
+async function fetchGearBoxTx(address: string): Promise<any> {
+  try {
+    // Call the query function from query.ts
+    const result = await fetchOpenCreditAccounts(address)
+
+    // Process the result
+    console.log(
+      address,
+      ' have opened CA ',
+      result.openCreditAccounts.length,
+      ' times'
+    )
+
+    for (let i = 0; i < result.openCreditAccounts.length; i++) {
+      const txReceipt = await getRecentReceipt(
+        result.openCreditAccounts[i].transactionHash
+      )
+      console.log(result.openCreditAccounts[i].transactionHash)
+      console.log(Number(txReceipt.blockNumber))
+      console.log(Number(txReceipt.transactionIndex))
+      console.log(Number(findLogIdx(txReceipt.logs)))
+    }
+
+    console.log(result)
+  } catch (error) {
+    console.error('An error occurred:', error)
+  }
+}
+
 // Export the function if needed
-export { getRecentReceipt, findLogIdx, fetchOpenCreditAccounts }
+export { fetchGearBoxTx }
