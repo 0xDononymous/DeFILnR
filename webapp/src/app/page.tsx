@@ -68,8 +68,10 @@ export default function Home({ searchParams }: PageProps) {
           type="text"
           className="mx-2 p-1 border border-gray-300 rounded"
         />
-      </div> ETH
-      🚨 Make sure the wallet balance is enough for the amount
+        <br /><br />
+        ETH
+        🚨 Make sure the wallet balance is enough for the amount
+      </div> 
       {renderButton()}
     </>
   )
