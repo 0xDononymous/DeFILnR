@@ -21,5 +21,13 @@ library LibUserSegmentation {
         }
     }
 
-    function segmentationByV2Usage(uint256 usedTimes) internal pure returns (UserSegment) {}
+    function segmentationByV2Usage(uint256 usedTimes) internal pure returns (UserSegment) {
+        if (usedTimes >= 6) {
+            return UserSegment.Tier3;
+        } else if (usedTimes >= 3) {
+            return UserSegment.Tier2;
+        } else {
+            return UserSegment.Tier1;
+        }
+    }
 }
