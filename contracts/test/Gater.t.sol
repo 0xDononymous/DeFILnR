@@ -25,11 +25,6 @@ contract ParamGearboxAccountTest is Test {
         );
     }
 
-    function test_updateCreditFacadeV3Addr() public {
-        address randomAddress = vm.addr(uint256(keccak256("RandomSeed")));
-        gater.updateCreditFacadeV3Addr(newCreditManager);
-    }
-
     function test_openCreditAccount() public {
         address randomAddress = vm.addr(uint256(keccak256("RandomSeed")));
         vm.startPrank(randomAddress);
@@ -38,7 +33,7 @@ contract ParamGearboxAccountTest is Test {
         uint16 leverageFactor = 100;
         address weth = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
 
-        address creditAccount = gater._openCreditAccount(amount, randomAddress, leverageFactor);
+        address creditAccount = gater.openCreditAccount(randomAddress, leverageFactor);
         IERC20(weth).approve(address(creditAccount), 1000000e18);
         
         vm.stopPrank();

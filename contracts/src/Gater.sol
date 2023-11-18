@@ -29,14 +29,10 @@ contract Gater is Ownable {
         emit CreditManagerAddressUpdated(_creditFacadeV3Addr);
     }
 
-    function _openCreditAccount(
-        uint256 amount,
+    function openCreditAccount(
         address callerAddr,
         uint16 leverageFactor
-    ) public returns (address) { // FIXME: change to internal 
-        leverageFactors[callerAddr] = leverageFactor; // save the calculated leverage factor for future reference
-        uint256 debt = (amount * leverageFactor) / 100; // LEVERAGE_DECIMALS; // F:[FA-5]
-        
+    ) public returns (address) {
         // Open account for user
         return creditFacade.openCreditAccount(
             callerAddr,
