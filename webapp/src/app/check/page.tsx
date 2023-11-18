@@ -56,17 +56,17 @@ export default async function Check({ searchParams }: PageProps) {
     return (
       <>
         <div className="text-center">
-          {"Congratulations! You're eligible for the UselessToken airdrop."}
+          {"Degen, Now I grant you greater leverage!"}
         </div>
         <LinkButtonQuery
-          label="Build Axiom proof params"
+          label="✨✨✨ Let Axiom Wizard to open a Degen Account for you. Build Axiom proof params! ✨✨✨"
           pathname='/claim'
           data={gearboxTx}
         />
       </>
     )
   }
-
+  
   return (
     <>
       <Title>
