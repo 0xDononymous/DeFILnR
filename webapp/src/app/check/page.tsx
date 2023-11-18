@@ -1,6 +1,7 @@
 import LinkButton from "@/components/ui/LinkButton";
 import Title from "@/components/ui/Title";
-import { findMostRecentUniswapTx } from "@/lib/parseRecentTx";
+// import { findMostRecentUniswapTx } from "@/lib/parseRecentTx";
+import { fetchGearBoxTx } from "@/lib/query";
 
 interface PageProps {
   params: Params;
@@ -15,12 +16,15 @@ interface SearchParams {
   [key: string]: string | string[] | undefined;
 }
 
+const MOCK_ACCOUNT_HAVE_TXHISTORY_WITH_GEARBOX = '0xf13df765f3047850Cede5aA9fDF20a12A75f7F70';
+
 export default async function Check({ searchParams }: PageProps) {
   const connected = searchParams?.connected as string ?? "";
 
   // Find the user's uniswap transaction with the `Swap` event
-  const uniswapTx = await findMostRecentUniswapTx(connected);
-
+  // const uniswapTx = await findMostRecentUniswapTx(connected);
+  const gearboxTx = await fetchGearBoxTx(MOCK_ACCOUNT_HAVE_TXHISTORY_WITH_GEARBOX);
+  
   const renderNotEligible = () => {
     return (
       <>
@@ -36,10 +40,11 @@ export default async function Check({ searchParams }: PageProps) {
   }
 
   const renderEligible = () => {
-    const log = uniswapTx?.log;
-    const txHash = log?.transactionHash;
-    const blockNumber = log?.blockNumber;
-    const logIdx = uniswapTx?.logIdx;
+    // console.log(gearboxTx?.transactionHash);
+    const log = gearboxTx?.log;
+    const txHash = gearboxTx?.txHash;
+    const blockNumber = gearboxTx?.blockNumber;
+    const logIdx = gearboxTx?.logIdx;
 
     if (txHash === undefined || blockNumber === undefined || logIdx === undefined) {
       return renderNotEligible();
@@ -68,7 +73,7 @@ export default async function Check({ searchParams }: PageProps) {
       <Title>
         Check eligibility
       </Title>
-      {uniswapTx !== null ? renderEligible() : renderNotEligible()}
+      {gearboxTx !== null ? renderEligible() : renderNotEligible()}
     </>
   )
 }

@@ -90,10 +90,6 @@ async function fetchGearBoxTx(address: string): Promise<any> {
       txHashArray.push(result.openCreditAccounts[i].transactionHash)
       blockNumberArray.push(txReceipt.blockNumber)
       logIdxArray.push(findLogIdx(txReceipt.logs))
-      /* console.log(result.openCreditAccounts[i].transactionHash)
-      console.log(Number(txReceipt.blockNumber))
-      console.log(Number(txReceipt.transactionIndex))
-      console.log(Number(findLogIdx(txReceipt.logs))) */
     }
     return {
       log: logArray,
@@ -101,15 +97,6 @@ async function fetchGearBoxTx(address: string): Promise<any> {
       blockNumber: blockNumberArray,
       logIdx: logIdxArray,
     }
-
-    /* 
-    return 
-    const log = uniswapTx?.log;
-    const txHash = log?.transactionHash;
-    const blockNumber = log?.blockNumber;
-    const logIdx = uniswapTx?.logIdx;
-    */
-
   } catch (error) {
     console.error('An error occurred:', error)
   }
