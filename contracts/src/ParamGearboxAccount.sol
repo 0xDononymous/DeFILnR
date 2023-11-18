@@ -11,6 +11,7 @@ import { ICreditFacadeV3 } from './interfaces/ICreditFacadeV3.sol';
 import { ICreditFacadeV3Multicall } from './interfaces/ICreditFacadeV3Multicall.sol';
 import { MultiCallBuilder } from 'core-v3/test/lib/MultiCallBuilder.sol';
 import { MultiCall } from "@gearbox-protocol/core-v2/contracts/libraries/MultiCall.sol";
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract ParamGearboxAccount is AxiomV2Client, Ownable {
     event OpenAccount(
@@ -165,18 +166,22 @@ contract ParamGearboxAccount is AxiomV2Client, Ownable {
         amount = 100;
         uint16 leverageFactor = 100;
         uint256 debt = (amount * leverageFactor) / 100; // LEVERAGE_DECIMALS; // F:[FA-5]
-
+        address weth = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
+        
         // Open account for user
         return creditFacade.openCreditAccount(
             callerAddr,
             MultiCallBuilder.build(
-                MultiCall({
-                    target: address(creditFacade),
-                    callData: abi.encodeCall(ICreditFacadeV3Multicall.increaseDebt, (debt))
-                })
+                
             ),
             0
         );
+        /* 
+        MultiCall({
+                    target: address(creditFacade),
+                    callData: abi.encodeCall(ICreditFacadeV3Multicall.addCollateral, (weth, 1e18)) // FIXME: change token
+                })
+         */
 
         /* 
         MultiCall({
