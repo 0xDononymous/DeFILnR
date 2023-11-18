@@ -12,7 +12,7 @@ const metadata = {
   icons: ['']
 }
 
-const gearBoxTestnet = defineChain({
+export const gearBoxTestnet = defineChain({
     id: 7878,
     name: 'Gearbox Testnet',
     network: 'gearbox',

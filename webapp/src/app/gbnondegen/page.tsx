@@ -26,7 +26,7 @@ export default async function Success({ searchParams }: PageProps) {
   return (
     <>
       <Title>
-      Hi Degen!!! &#128056;
+      Hi Newbie &#128018;
       </Title>
       <div className="text-left">
         Max Debt: <br />

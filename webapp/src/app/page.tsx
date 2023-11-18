@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-async-client-component */
 "use client"
 
+import { useCallback } from 'react'
 import MainLayout from '@/components/layout/MainLayout'
 import ConnectWallet from '@/components/ui/ConnectWallet'
-import LinkButton from '@/components/ui/LinkButton'
+import Button from '@/components/ui/Button'
 import Title from '@/components/ui/Title'
 import { forwardSearchParams } from '@/lib/utils'
 import Image from 'next/image'
@@ -12,6 +13,7 @@ import { useAccount } from 'wagmi'
 import { useState } from 'react'
 
 import logo from '../imgs/janissary-removebg-preview.png'
+import { useWeb3Modal } from '@web3modal/wagmi/react'
 
 interface PageProps {
   params: Params;
@@ -27,25 +29,32 @@ interface SearchParams {
 }
 
 export default function Home({ searchParams }: PageProps) {
-  const { address, isConnected } = useAccount()
+  const { address, isConnected,  } = useAccount()
 
-  console.log('connected', isConnected)
-
-  console.log(searchParams);
+  const { open } = useWeb3Modal()
 
   const [leverageFactor, setLeverageFactor] = useState(0);
 
+  const onGenerateProof = useCallback(async() => {
+    console.log('generating proofs....')
+
+    // todo: all the stuff
+
+    
+
+  }, [])
+
   const renderButton = () => {
     if (isConnected && address) {
-      return <LinkButton
-        label="Generate Proof"
-        //TODO: Link membership.sol
-        href={"/check?" + forwardSearchParams(searchParams)}
-        // href={"/fail?" + forwardSearchParams(searchParams)}
-      />;
+      return <Button
+          onClick={onGenerateProof}
+          //TODO: Link membership.sol
+          // href={"/check?" + forwardSearchParams(searchParams)}
+          // href={"/fail?" + forwardSearchParams(searchParams)}
+        > Generate Proof </Button>;
     }
     return <ConnectWallet />;
-  } 
+  }
 
   return (
     <>

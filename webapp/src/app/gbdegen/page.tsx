@@ -1,15 +1,12 @@
+"use client"
+
 import Title from "@/components/ui/Title";
+import { gearBoxTestnet } from "@/lib/wagmiConfig";
 import { Constants } from "@/shared/constants";
-import Link from "next/link";
-import LinkButton from '@/components/ui/LinkButton'
-import ConnectWallet from '@/components/ui/ConnectWallet'
-import { forwardSearchParams } from '@/lib/utils'
+import { useState, useEffect } from "react";
+import { createPublicClient, http } from "viem";
 
-
-interface PageProps {
-  params: Params;
-  searchParams: SearchParams;
-}
+const client = createPublicClient({ chain: gearBoxTestnet, transport: http() })
 
 interface Params {
   slug: string;
@@ -19,14 +16,21 @@ interface SearchParams {
   [key: string]: string | string[] | undefined;
 }
 
-export default async function Success({ searchParams }: PageProps) {
-  const connected = searchParams?.connected as string ?? "";
+export default function Success() {
 
+  const ca = "0x000000"
+  
+  const [maxDebt, setMaxDebt] = useState(0);
+
+  useEffect(() => {
+    // pull data
+    // await client.
+  }, )
 
   return (
     <>
       <Title>
-      Hi Degen!!! &#128018;
+      Hi Degen!!! &#128056;
       </Title>
       <div className="text-left">
         Max Debt: <br />

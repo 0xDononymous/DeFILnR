@@ -28,10 +28,10 @@ export default async function Success({ searchParams }: PageProps) {
       return <LinkButton
         label="✨✨✨ Let Axiom Wizard to open a Degen Account for you ✨✨✨"
         //TODO: Link membership.sol
-        href={"/check?" + forwardSearchParams(searchParams)}
+        href={"/gbdegen?" + forwardSearchParams(searchParams)}
       />;
     }
-    return <ConnectWallet connected={connected} />;
+    return <ConnectWallet />;
   } 
 
   return (

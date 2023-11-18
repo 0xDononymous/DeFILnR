@@ -1,3 +1,5 @@
+"use client"
+
 import Title from "@/components/ui/Title";
 import { Constants } from "@/shared/constants";
 import Link from "next/link";
@@ -19,7 +21,7 @@ interface SearchParams {
   [key: string]: string | string[] | undefined;
 }
 
-export default async function Success({ searchParams }: PageProps) {
+export default function Success({ searchParams }: PageProps) {
   const connected = searchParams?.connected as string ?? "";
 
   const renderButton = () => {
@@ -27,10 +29,10 @@ export default async function Success({ searchParams }: PageProps) {
       return <LinkButton
         label="Open a CA on Gearbox"
         //TODO: Link membership.sol
-        href={"/check?" + forwardSearchParams(searchParams)}
+        href={"/gbnondegen?" + forwardSearchParams(searchParams)}
       />;
     }
-    return <ConnectWallet connected={connected} />;
+    return <ConnectWallet />;
   } 
 
   return (
