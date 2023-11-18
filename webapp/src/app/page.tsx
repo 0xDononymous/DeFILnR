@@ -1,3 +1,6 @@
+/* eslint-disable @next/next/no-async-client-component */
+"use client"
+
 import MainLayout from '@/components/layout/MainLayout'
 import ConnectWallet from '@/components/ui/ConnectWallet'
 import LinkButton from '@/components/ui/LinkButton'
@@ -5,6 +8,7 @@ import Title from '@/components/ui/Title'
 import { forwardSearchParams } from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 
 
 interface PageProps {
@@ -20,9 +24,11 @@ interface SearchParams {
   [key: string]: string | string[] | undefined;
 }
 
-export default async function Home({ searchParams }: PageProps) {
+export default function Home({ searchParams }: PageProps) {
   const connected = searchParams?.connected as string ?? "";
   console.log(searchParams);
+
+  const [leverageFactor, setLeverageFactor] = useState(0);
 
   const renderButton = () => {
     if (connected) {
@@ -47,6 +53,11 @@ export default async function Home({ searchParams }: PageProps) {
         <br />
         Leverage Factor *
         <input
+          value={leverageFactor}
+          onChange={(e) => {
+            if (!e.target.value) setLeverageFactor(0);
+            setLeverageFactor(parseInt(e.target.value))
+          }}
           type="text"
           className="mx-2 p-1 border border-gray-300 rounded"
         /> <br /><br />
