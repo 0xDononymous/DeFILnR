@@ -37,10 +37,11 @@ export default function BuildQuery({
         return;
       }
       await build();
-    };
-    buildQuery().then(() => {
+      
       route.push(`/success/?address=${inputs.provingAddress}`)
-    });
+      
+    };
+    buildQuery();
   }, [build, areParamsSet, route]);
 
   if (!builtQuery || !payment) {

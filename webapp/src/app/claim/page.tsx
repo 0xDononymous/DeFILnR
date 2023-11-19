@@ -76,7 +76,7 @@ export default async function Claim({ searchParams }: PageProps) {
   return (
     <>
       <Title>
-        Claim airdrop
+        Claim
       </Title>
       <div className="text-center">
         Please wait while we generate a compute proof in wasm for the Axiom Query. Once complete, you can click the buttom below to claim your UselessToken airdrop. UselessToken is purely used for testing purposes and holds no financial or nonmonetary value.
