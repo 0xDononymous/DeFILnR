@@ -55,11 +55,8 @@ export default async function Check({ searchParams }: PageProps) {
 
     return (
       <>
-        <div className="text-center">
-          {"Generate Proof!"}
-        </div>
         <LinkButtonQuery
-          label="✨✨✨ Let Axiom Wizard to open a Degen Account for you. Build Axiom proof params! ✨✨✨"
+          label="✨✨✨ Build Axiom proof params! ✨✨✨"
           pathname='/claim'
           data={gearboxTx}
         />
@@ -70,7 +67,7 @@ export default async function Check({ searchParams }: PageProps) {
   return (
     <>
       <Title>
-        Check
+        Generate Proofs
       </Title>
       {gearboxTx !== null ? renderEligible() : renderNotEligible()}
     </>
