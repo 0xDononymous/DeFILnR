@@ -15,7 +15,7 @@ import gaterAbi from '../../abi/gater.json'
 import loadingImg from '../../imgs/loading.gif'
 import { useAccount } from "wagmi";
 import Button from "@/components/ui/Button";
-import LinkButton from "@/components/ui/LinkButton";
+import {LinkButton} from "@/components/ui/LinkButton";
 
 interface PageProps {
   params: Params;

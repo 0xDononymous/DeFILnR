@@ -6,6 +6,7 @@ import { AxiomV2Callback } from "@axiom-crypto/core";
 import { useEffect } from "react";
 import LoadingAnimation from "../ui/LoadingAnimation";
 import DegenMembershipClient from "./DegenMembershipClient";
+import { useRouter } from 'next/navigation'
 
 export default function BuildQuery({
   inputs,
@@ -16,6 +17,8 @@ export default function BuildQuery({
   callback: AxiomV2Callback;
   membershipAbi: any[];
 }) {
+  const route = useRouter()
+
   const {
     build,
     builtQuery,
@@ -35,8 +38,10 @@ export default function BuildQuery({
       }
       await build();
     };
-    buildQuery();
-  }, [build, areParamsSet]);
+    buildQuery().then(() => {
+      route.push(`/success/?address=${inputs.provingAddress}`)
+    });
+  }, [build, areParamsSet, route]);
 
   if (!builtQuery || !payment) {
     return (
@@ -45,6 +50,9 @@ export default function BuildQuery({
       </div>
     );
   }
-
-  return <DegenMembershipClient membershipAbi={membershipAbi} />;
+  
+  return (
+  <div>
+  </div>
+  );
 }
