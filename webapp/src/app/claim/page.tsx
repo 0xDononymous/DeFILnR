@@ -1,7 +1,7 @@
 import BuildQuery from "@/components/claim/BuildQuery";
 import Title from "@/components/ui/Title";
 import autoAirdropJson from '@/lib/abi/AutonomousAirdrop.json';
-import { CircuitInputs } from "@/lib/circuit";
+import { CircuitInputs, defaultInputs } from "@/lib/circuit";
 import { publicClient } from "@/lib/viemClient";
 import { Constants } from "@/shared/constants";
 import { AxiomV2Callback, bytes32, getFunctionSelector } from "@axiom-crypto/core";
@@ -83,7 +83,7 @@ export default async function Claim({ searchParams }: PageProps) {
       </div>
       <div className="flex flex-col gap-2 items-center">
         <BuildQuery
-          inputs={inputs}
+          inputs={defaultInputs}
           callback={callback}
           membershipAbi={autoAirdropJson.abi}
         />

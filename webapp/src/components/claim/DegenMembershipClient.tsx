@@ -16,6 +16,8 @@ import { formatEther } from "viem";
 import Link from "next/link";
 import { useAxiomCircuit } from '@axiom-crypto/react';
 
+import { getContract } from 'viem'
+
 export default function DegenMembershipClient({
   membershipAbi,
 }: {
@@ -44,7 +46,23 @@ export default function DegenMembershipClient({
   ];
 
   // Prepare hook for the sendQuery transaction
+  // const axiomContract = getContract({
+  //   abi: axiomQueryAbi,
+  //   address: axiomQueryAddress as `0x${string}`,
+    
+  // })
+
+  
+
+
   const { config } = usePrepareContractWrite({
+    address: axiomQueryAddress as `0x${string}`,
+    abi: axiomQueryAbi,
+    functionName: 'sendQuery',
+    args: claimParams,
+    value: BigInt(payment ?? 0),
+  });
+  console.log("Write to contract config", {
     address: axiomQueryAddress as `0x${string}`,
     abi: axiomQueryAbi,
     functionName: 'sendQuery',
@@ -53,17 +71,19 @@ export default function DegenMembershipClient({
   });
   const { data, isLoading, isSuccess, isError, write } = useContractWrite(config);
 
+  console.log('write', write)
+
   // TODO listen to an event checking hyperlan cross chain success or not
 
 
   // Check that the user has not claimed the airdrop yet
-  const { data: hasClaimed, isLoading: hasClaimedLoading } = useContractRead({
-    address: Constants.AUTO_AIRDROP_ADDR as `0x${string}`,
+  /* const { data: hasClaimed, isLoading: hasClaimedLoading } = useContractRead({
+    address: Constants.GOERLI_MEMBERSHIP_ADDR as `0x${string}`,
     abi: membershipAbi,
     functionName: 'hasClaimed',
     args: [address],
   });
-  console.log("hasClaimed?", hasClaimed);
+  console.log("hasClaimed?", hasClaimed); */
 
   useEffect(() => {
     if (isSuccess) {
@@ -74,18 +94,18 @@ export default function DegenMembershipClient({
   }, [isSuccess, setShowExplorerLink]);
 
   const proofGeneratedAction = useCallback(() => {
-    router.push(`success/?address=${address}`);
+    // router.push(`success/?address=${address}`);
   }, [router, address]);
 
   const proofValidationFailedAction = useCallback(() => {
     if (isError) {
-      router.push(`fail/?address=${address}`);
+      // router.push(`fail/?address=${address}`);
     }
   }, [isError, router, address]);
 
   // Monitor contract for `ClaimAirdrop` or `ClaimAirdropError` events
   useContractEvent({
-    address: Constants.AUTO_AIRDROP_ADDR as `0x${string}`,
+    address: Constants.GOERLI_MEMBERSHIP_ADDR as `0x${string}`,
     abi: membershipAbi,
     eventName: 'ClaimAirdrop',
     listener(log) {
@@ -107,7 +127,7 @@ export default function DegenMembershipClient({
   // });
 
   const renderButtonText = () => {
-    if (isSuccess) {
+    /* if (isSuccess) {
       return "Waiting for callback...";
     }
     if (isLoading) {
@@ -115,8 +135,8 @@ export default function DegenMembershipClient({
     }
     if (!!hasClaimed) {
       return "Airdrop already claimed"
-    }
-    return "Claim 100 UT";
+    } */
+    return "Degen";
   }
 
   const renderClaimProofText = () => {
@@ -137,16 +157,13 @@ export default function DegenMembershipClient({
   return (
     <div className="flex flex-col items-center gap-2">
       <Button
-        disabled={loading}
-        onClick={() => switchNetwork("goerli")}
+        disabled={isLoading || isSuccess || !write }
+        onClick={() => {
+          console.log('test')
+          write?.()
+        }}
       >
-        {"Switch Network"}
-      </Button>
-      <Button
-        disabled={isLoading || isSuccess || !!hasClaimed}
-        onClick={() => write?.()}
-      >
-        {renderButtonText()}
+        {'Here is the button'}
       </Button>
       <div className="flex flex-col items-center text-sm gap-2">
         <div>

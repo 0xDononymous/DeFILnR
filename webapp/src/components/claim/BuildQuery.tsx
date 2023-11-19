@@ -18,6 +18,7 @@ export default function BuildQuery({
   membershipAbi: any[];
 }) {
   const route = useRouter()
+  console.log("entering build query")
 
   const {
     build,
@@ -33,13 +34,12 @@ export default function BuildQuery({
 
   useEffect(() => {
     const buildQuery = async () => {
+      console.log("buildQuery input", inputs)
+      console.log("buildQuery callback", callback)
       if (!areParamsSet) {
         return;
       }
       await build();
-      
-      route.push(`/success/?address=${inputs.provingAddress}`)
-      
     };
     buildQuery();
   }, [build, areParamsSet, route]);
@@ -53,7 +53,6 @@ export default function BuildQuery({
   }
   
   return (
-  <div>
-  </div>
+    <DegenMembershipClient membershipAbi={membershipAbi} />
   );
 }

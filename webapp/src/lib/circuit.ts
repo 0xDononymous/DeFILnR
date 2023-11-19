@@ -16,7 +16,7 @@ import {
   CircuitValue,
   CircuitValue256,
 } from '@axiom-crypto/core/halo2-js'
-const defaultInputs = {
+export const defaultInputs = {
   provingAddress: '0xf13df765f3047850Cede5aA9fDF20a12A75f7F70',
   facadeAddress: '0x15A43dbcD8dBc094f7866c2F458cAb68c35BBe16',
   blockNumber: [7925445, 7926956],
