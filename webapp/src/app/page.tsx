@@ -58,7 +58,7 @@ export default function Home({ searchParams }: PageProps) {
 
   return (
     <>
-      <Image height={200} src={logo} alt="logo"/>
+      {/* <Image height={200} src={logo} alt="logo"/> */}
       <Title>
         {/* Welcome to DeFi Loyalty and Reward System */}
         Welcome to Domain Expansion

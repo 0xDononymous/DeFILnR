@@ -101,7 +101,7 @@ export default function Degen({ searchParams }: PageProps) {
 
       <div className="text-left">
       <br />
-      Max Debt: {formatEther(maxDebt)} <br />
+      Max Debt: {formatEther(maxDebt)} ETH <br />
       CA Address:  {ca === zeroAddress ? '' : ca} <br />
       <br />
       </div> 

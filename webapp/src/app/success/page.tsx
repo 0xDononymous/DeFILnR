@@ -55,11 +55,14 @@ export default function Success({ searchParams }: PageProps) {
 
       const newMaxDebtNum = Number(BigInt(newMaxDebt as string).toString())
 
-      if (maxDebt == 0) maxDebt = newMaxDebtNum;
+      if (maxDebt == 0) {
+        maxDebt = newMaxDebtNum;
+        return
+      }
 
       if (newMaxDebtNum !== maxDebt ) {
         console.log('updated')
-        setReady(true)
+        router.push(`/portfolio?address=${user}`)
       } else {
         console.log('newMaxDebt', newMaxDebtNum)
       }
@@ -86,11 +89,10 @@ export default function Success({ searchParams }: PageProps) {
         <Image height={250} src={loadingImg} alt="loading"/>
         <br />
         <center>
-        <LinkButton 
-          disabled={!ready}
-          label="Reveal my Identity"
-          href={"/portfolio/"}
-        /> 
+        {/* <Button 
+          disabled={ready}
+          onClick={() => {}}
+        >  Reveal my Identity </Button> */}
         </center>
       </div> 
       <br />

@@ -3,7 +3,7 @@
 import Title from "@/components/ui/Title";
 import { Constants } from "@/shared/constants";
 import Link from "next/link";
-import LinkButton from '@/components/ui/LinkButton'
+import {LinkButton} from '@/components/ui/LinkButton'
 import ConnectWallet from '@/components/ui/ConnectWallet'
 import { forwardSearchParams } from '@/lib/utils'
 
