@@ -15,6 +15,7 @@ import { useState } from 'react'
 
 import logo from '../imgs/janissary-removebg-preview.png'
 import { useWeb3Modal } from '@web3modal/wagmi/react'
+import { useRouter } from 'next/navigation'
 
 interface PageProps {
   params: Params;
@@ -36,13 +37,16 @@ export default function Home({ searchParams }: PageProps) {
 
   const [leverageFactor, setLeverageFactor] = useState(0);
 
+  const route = useRouter()
+
   const onGenerateProof = useCallback(async() => {
     console.log('generating proofs....')
 
     // todo: all the stuff
 
     
-
+    // go to success
+    route.push(`/success/?address=${address}`)
   }, [])
 
   const renderButton = () => {
@@ -51,7 +55,7 @@ export default function Home({ searchParams }: PageProps) {
           onClick={onGenerateProof}
           //TODO: Link membership.sol
           // href={"/check?" + forwardSearchParams(searchParams)}
-          // href={"/fail?" + forwardSearchParams(searchParams)}
+          // href={"/success?" + forwardSearchParams(searchParams)}
         > Generate Proof </Button>;
     }
     return <ConnectWallet />;
@@ -62,7 +66,7 @@ export default function Home({ searchParams }: PageProps) {
       <Image height={200} src={logo} alt="logo"/>
       <Title>
         {/* Welcome to DeFi Loyalty and Reward System */}
-        Welcome to Janissary Farm
+        Welcome to Domain Expansion
       </Title>
       <div className="text-left">
         {/* 1. Connect wallet <br /> */}
