@@ -40,18 +40,24 @@ contract Membership is IMembership, AxiomV2Client, HyperlaneSender, Ownable {
         bytes calldata /*extraData*/
     ) internal virtual override {
         // Parse results
-        uint256 _balanceCriteria = uint256(axiomResults[0]);
+        bytes32 _eventSchema = axiomResults[0];
         address _provingAddress = address(uint160(uint256(axiomResults[1])));
-        uint256 _provingInterval = uint256(axiomResults[2]);
+        address _facadeAddress = address(uint160(uint256(axiomResults[2])));
+        uint256 _openCATimes = uint256(axiomResults[3]);
 
         // Validate the results
+        // event schema should be equal to
+        // `OpenCreditAccount (address onBehalfOf, address creditAccount, uint256 borrowAmount, uint16 referralCode)` event schema
+        if (_eventSchema != 0xfa2baf5d3eb95569f312f22477b246f9d4c50276f1cb3ded8e1aeadcbc07a763) {
+            revert("event schema mismatch");
+        }
         // proving address should be the caller
         /*if (provingAddress == callerAddr) {
             revert("caller address and proving address mismatch");
         }*/
-        // proving interval should be 1728000
-        if (_provingInterval != PROVING_INTERVAL) {
-            revert("proving interval mismatch");
+        // facade address should be equal to 0x15A43dbcD8dBc094f7866c2F458cAb68c35BBe16
+        if (_facadeAddress != 0x15A43dbcD8dBc094f7866c2F458cAb68c35BBe16) {
+            revert("facade address mismatch");
         }
 
         // User segmentation
@@ -60,17 +66,15 @@ contract Membership is IMembership, AxiomV2Client, HyperlaneSender, Ownable {
         // example of decoding when destination chain received this
         // (uint16 leverageFactor, address callerAddr) =
         //     abi.decode(_messageBody, (uint256, address));
-        LibUserSegmentation.UserSegment _userSegment = LibUserSegmentation.segmentationByBalance(_balanceCriteria);
-        if (_userSegment == LibUserSegmentation.UserSegment.None) {
-            revert("_balanceCriteria invalid");
-        } else if (_userSegment == LibUserSegmentation.UserSegment.Tier1) {
-            bytes memory _messageBody = abi.encodePacked(uint256(1), _provingAddress);
+        LibUserSegmentation.UserSegment _userSegment = LibUserSegmentation.segmentationByV2Usage(_openCATimes);
+        if (_userSegment == LibUserSegmentation.UserSegment.Tier1) {
+            bytes memory _messageBody = abi.encodePacked(uint256(5 ether), _provingAddress);
             dispatch(messageDestinationDomain, bytes32(uint256(uint160(recipientAddress))), _messageBody);
         } else if (_userSegment == LibUserSegmentation.UserSegment.Tier2) {
-            bytes memory _messageBody = abi.encodePacked(uint256(2), _provingAddress);
+            bytes memory _messageBody = abi.encodePacked(uint256(20 ether), _provingAddress);
             dispatch(messageDestinationDomain, bytes32(uint256(uint160(recipientAddress))), _messageBody);
         } else if (_userSegment == LibUserSegmentation.UserSegment.Tier3) {
-            bytes memory _messageBody = abi.encodePacked(uint256(3), _provingAddress);
+            bytes memory _messageBody = abi.encodePacked(type(uint256).max, _provingAddress);
             dispatch(messageDestinationDomain, bytes32(uint256(uint160(recipientAddress))), _messageBody);
         }
     }
