@@ -69,7 +69,7 @@ export default async function Claim({ searchParams }: PageProps) {
   }
 
   const callback: AxiomV2Callback = {
-    target: Constants.AUTO_AIRDROP_ADDR as `0x${string}`,
+    target: Constants.GOERLI_MEMBERSHIP_ADDR as `0x${string}`,
     extraData: bytes32(connected),
   }
 
