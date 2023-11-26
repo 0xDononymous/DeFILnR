@@ -1,7 +1,9 @@
 # Hyperlane relayer deployment steps
+
 ```
-hyperlane config create chain 
+hyperlane config create chain
 ```
+
 ```
 hyperlane config create multisig
  hyperlane deploy core \
@@ -10,12 +12,13 @@ hyperlane config create multisig
     --artifacts $PREDEPLOYED_ARTIFACT_FILE \
     --ism $MULTISIG_CONFIG_FILE \
     --out $OUT_DIR \
-    --key 0x..
+    --key 0xf7ade4b728583c9d446f3b80302155f1efe25643edbf373bbe7e689339569dbd
 ```
 
 ```
 hyperlane deploy kurtosis-agents
 ```
+
 ```
 hyperlane send message \
 --origin goerli \

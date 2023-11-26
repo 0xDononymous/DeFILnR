@@ -31,7 +31,7 @@ export default function DegenMembershipClient({
   const [showExplorerLink, setShowExplorerLink] = useState(false);
 
   const axiomQueryAbi = axiom.getAxiomQueryAbi();
-  const axiomQueryAddress = axiom.getAxiomQueryAddress();
+  const axiomQueryAddress = "0xBd5307B0Bf573E3F2864Af960167b24Aa346952b";//axiom.getAxiomQueryAddress();
 
   const claimParams = [
     builtQuery?.sourceChainId,
@@ -52,9 +52,6 @@ export default function DegenMembershipClient({
     
   // })
 
-  
-
-
   const { config } = usePrepareContractWrite({
     address: axiomQueryAddress as `0x${string}`,
     abi: axiomQueryAbi,
@@ -62,13 +59,7 @@ export default function DegenMembershipClient({
     args: claimParams,
     value: BigInt(payment ?? 0),
   });
-  console.log("Write to contract config", {
-    address: axiomQueryAddress as `0x${string}`,
-    abi: axiomQueryAbi,
-    functionName: 'sendQuery',
-    args: claimParams,
-    value: BigInt(payment ?? 0),
-  });
+  
   const { data, isLoading, isSuccess, isError, write } = useContractWrite(config);
 
   console.log('write', write)
@@ -94,7 +85,7 @@ export default function DegenMembershipClient({
   }, [isSuccess, setShowExplorerLink]);
 
   const proofGeneratedAction = useCallback(() => {
-    // router.push(`success/?address=${address}`);
+    router.push(`/success/?address=${address}`);
   }, [router, address]);
 
   const proofValidationFailedAction = useCallback(() => {
@@ -104,16 +95,14 @@ export default function DegenMembershipClient({
   }, [isError, router, address]);
 
   // Monitor contract for `ClaimAirdrop` or `ClaimAirdropError` events
-  useContractEvent({
-    address: Constants.GOERLI_MEMBERSHIP_ADDR as `0x${string}`,
-    abi: membershipAbi,
-    eventName: 'ClaimAirdrop',
-    listener(log) {
-      console.log("Claim airdrop success");
-      console.log(log);
-      proofGeneratedAction();
-    },
-  });
+  // useContractEvent({
+  //   address: Constants.GOERLI_MEMBERSHIP_ADDR as `0x${string}`,
+  //   abi: membershipAbi,
+  //   eventName: 'ClaimAirdrop',
+  //   listener(log) {
+  //     proofGeneratedAction();
+  //   },
+  // });
 
   // useContractEvent({
   //   address: Constants.AUTO_AIRDROP_ADDR as `0x${string}`,
@@ -127,7 +116,7 @@ export default function DegenMembershipClient({
   // });
 
   const renderButtonText = () => {
-    /* if (isSuccess) {
+    /* if (isSuccess) {z
       return "Waiting for callback...";
     }
     if (isLoading) {
@@ -139,9 +128,9 @@ export default function DegenMembershipClient({
     return "Degen";
   }
 
-  const renderClaimProofText = () => {
-    return `Generating the proof for the claim costs ${formatEther(BigInt(payment ?? 0)).toString()}ETH`;
-  }
+  // const renderClaimProofText = () => {
+  //   return `Generating the proof for the claim costs ${formatEther(BigInt(payment ?? 0)).toString()}ETH`;
+  // }
 
   const renderExplorerLink = () => {
     if (!showExplorerLink) {
@@ -159,15 +148,16 @@ export default function DegenMembershipClient({
       <Button
         disabled={isLoading || isSuccess || !write }
         onClick={() => {
-          console.log('test')
-          write?.()
+          if (!write) return;
+          write()
+          router.push(`/success/?address=${address}`);
         }}
       >
-        {'Here is the button'}
+        {'Open Credit Account'}
       </Button>
       <div className="flex flex-col items-center text-sm gap-2">
         <div>
-          {isSuccess ? "Proof generation may take up to 3 minutes" : renderClaimProofText()}
+          {isSuccess ?? "Proof generation may take up to 3 minutes"}
         </div>
         {renderExplorerLink()}
       </div>

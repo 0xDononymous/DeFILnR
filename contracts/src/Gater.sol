@@ -21,6 +21,7 @@ contract Gater is IReceiver, Ownable {
     ICreditFacadeV3 public creditFacade;
     ICreditManagerV3 public creditManager;
     address public mailbox;
+    address public creditAccount;
 
     // testing flag for handle function
     bool public handled = false;
@@ -75,6 +76,7 @@ contract Gater is IReceiver, Ownable {
         ownerOf[ca] = callerAddr;
         userCa[callerAddr] = ca;
 
+        creditAccount = ca;
 
         emit CreditAccountOpened(ca, userMaxDebt);
 
@@ -111,5 +113,9 @@ contract Gater is IReceiver, Ownable {
 
     function getCreditFacadeAddr() public view returns (address) {
         return address(creditFacade);
+    }
+
+    function setCreditAccount(address _creditAccount) public {
+        creditAccount = _creditAccount;
     }
 }

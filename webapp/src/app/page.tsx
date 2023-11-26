@@ -49,7 +49,7 @@ export default function Home({ searchParams }: PageProps) {
   const renderButton = () => {
     if (isConnected && address) {
       return <LinkButton
-        label="Check Credit"
+        label="Start"
         href={"/check?" + forwardSearchParams(searchParams)}
       />;
     }

@@ -70,16 +70,16 @@ export default async function Claim({ searchParams }: PageProps) {
 
   const callback: AxiomV2Callback = {
     target: Constants.GOERLI_MEMBERSHIP_ADDR as `0x${string}`,
-    extraData: bytes32(connected),
+    extraData: "0x",
   }
 
   return (
     <>
       <Title>
-        Claim
+        Open Credit Account
       </Title>
       <div className="text-center">
-        Please wait while we generate a compute proof in wasm for the Axiom Query. Once complete, you can click the buttom below to claim your UselessToken airdrop. UselessToken is purely used for testing purposes and holds no financial or nonmonetary value.
+        Please wait while we generate a compute proof in wasm for the Axiom Query. Once complete, we will create a credit account based on your on-chain credit.
       </div>
       <div className="flex flex-col gap-2 items-center">
         <BuildQuery
