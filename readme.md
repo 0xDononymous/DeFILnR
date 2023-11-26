@@ -34,6 +34,8 @@ Here is the [circuit](https://repl.axiom.xyz?gist=a42397437fd3bff0b2fc8bc0bd778d
 
 Here is the part where Axiom is [used](https://github.com/0xDononymous/DefiLnR/blob/main/contracts/src/Membership.sol#L12)
 
+Here is the Custom Circuits [used](https://gist.github.com/ryanycw/a42397437fd3bff0b2fc8bc0bd778d4c)
+
 ### Hyperlane
 
 Leveraged the power of Hyperlane to enable our user to bring their previously credibility history with them to a destination chain.
@@ -49,3 +51,14 @@ Automated and diverse user categorization in Gearbox boosts protocol security an
 We utilized openCreditAccount to open an account. It illustrates the possibility of adding an extra Gater contract and imposes a further limitation on a diverse portfolio of users.
 
 Here is the part where Gearbox is [used](https://github.com/0xDononymous/DefiLnR/blob/19cf18f2162908c3f035ff66aebd9fb250ce74cd/contracts/src/Gater.sol#L52)
+
+## References
+
+### Hyperlane
+
+- [ETHGlobal New York Winner](https://github.com/sujithsomraaj/ethglobal-nyc-monorepo/blob/30cde229dfcd524c21ee9e7bbf059f0c6ca8f8b7/contracts/src/ExecutionLayer.sol)
+- [ETHGlobal New York Winner - MEVictim](https://github.com/howdymary/ETHNYC23/blob/6ee80a4504e245d2beeb1907bf320ea8c1d061f5/README.md)
+
+### Gearbox
+
+- [Gearbox Official](https://dev.gearbox.fi/v2/credit/architecture#credit-contacts)
