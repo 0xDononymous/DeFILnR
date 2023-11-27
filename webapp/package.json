@@ -1,6 +1,10 @@
 {
   "name": "auto-airdrop-webapp",
   "version": "0.2.1",
+  "packageManager": "yarn@1.22.19",
+  "engines": {
+    "node": "16.20.0"
+  },
   "private": true,
   "scripts": {
     "dev": "next dev",
