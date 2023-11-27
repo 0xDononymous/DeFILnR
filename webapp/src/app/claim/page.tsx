@@ -7,6 +7,8 @@ import { Constants } from "@/shared/constants";
 import { AxiomV2Callback, bytes32, getFunctionSelector } from "@axiom-crypto/core";
 import { useRouter } from 'next/navigation'
 
+export const runtime = 'edge';
+
 interface PageProps {
   params: Params;
   searchParams: SearchParams;
