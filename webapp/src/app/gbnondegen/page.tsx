@@ -1,9 +1,9 @@
 import Title from "@/components/ui/Title";
-//import { Constants } from "@/shared/constants";
-//import Link from "next/link";
-//import {LinkButton} from '@/components/ui/LinkButton'
-//import ConnectWallet from '@/components/ui/ConnectWallet'
-//import { forwardSearchParams } from '@/lib/utils'
+import { Constants } from "@/shared/constants";
+import Link from "next/link";
+import {LinkButton} from '@/components/ui/LinkButton'
+import ConnectWallet from '@/components/ui/ConnectWallet'
+import { forwardSearchParams } from '@/lib/utils'
 
 export const runtime = 'edge';
 
@@ -21,8 +21,7 @@ interface SearchParams {
 }
 
 export default async function Success({ searchParams }: PageProps) {
-  const connected = searchParams?.connected as string ?? "";
-
+  //const connected = searchParams?.connected as string ?? "";
 
   return (
     <>
