@@ -5,7 +5,7 @@
 	path = contracts/lib/openzeppelin-contracts
 	url = https://github.com/OpenZeppelin/openzeppelin-contracts
 [submodule "contracts/lib/core-v2"]
-	path = contracts/lib/gearbox-protocol/core-v2
+	path = contracts/lib/core-v2
 	url = https://github.com/Gearbox-protocol/core-v2
 [submodule "contracts/lib/forge-std"]
 	path = contracts/lib/forge-std
