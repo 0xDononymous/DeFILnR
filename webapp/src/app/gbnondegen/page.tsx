@@ -5,8 +5,6 @@ import {LinkButton} from '@/components/ui/LinkButton'
 import ConnectWallet from '@/components/ui/ConnectWallet'
 import { forwardSearchParams } from '@/lib/utils'
 
-export const runtime = 'edge';
-
 interface PageProps {
   params: Params;
   searchParams: SearchParams;
