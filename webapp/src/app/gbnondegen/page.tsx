@@ -21,7 +21,7 @@ interface SearchParams {
 }
 
 export default async function Success({ searchParams }: PageProps) {
-  //const connected = searchParams?.connected as string ?? "";
+  const connected = searchParams?.connected as string ?? "";
 
   return (
     <>
