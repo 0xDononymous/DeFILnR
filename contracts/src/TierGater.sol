@@ -6,14 +6,21 @@ import {Ownable} from "openzeppelin-contracts/contracts/access/Ownable.sol";
 contract TierGater is Ownable {
     event TeirUpdated(address indexed userAddress, uint16 indexed tier);
 
-    mapping(uint32 origin => address trustedSource) trustedSources;
+    address mailbox;
+
+    mapping(uint32 origin => address source) public trustedSources;
     mapping(address user => uint16 tier) public userTier;
+
+    constructor(address _mailbox) {
+        mailbox = _mailbox;
+    }
 
     function setTrustedSource(uint32 _origin, address _trustedSource) public onlyOwner {
         trustedSources[_origin] = _trustedSource;
     }
 
     function handle(uint32 _origin, bytes32 _sender, bytes calldata _message) external payable {
+        require(msg.sender == mailbox, "Gater: un-authorized mailbox");
         require(trustedSources[_origin] != address(0), "Gater: trusted source not set.");
         require(_sender == bytes32(uint256(uint160(trustedSources[_origin]))), "Gater: origin not trusted");
 
