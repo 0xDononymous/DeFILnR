@@ -18,7 +18,7 @@ interface SearchParams {
   [key: string]: string | string[] | undefined;
 }
 
-export default function Success({ searchParams }: PageProps) {
+export default async function Success({ searchParams }: PageProps) {
   const connected = searchParams?.connected as string ?? "";
 
   return (
