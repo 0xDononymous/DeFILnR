@@ -7,6 +7,8 @@ import { Constants } from "@/shared/constants";
 import { AxiomV2Callback, bytes32, getFunctionSelector } from "@axiom-crypto/core";
 import { useRouter } from 'next/navigation'
 
+export const runtime = 'edge';
+
 interface PageProps {
   params: Params;
   searchParams: SearchParams;
@@ -52,14 +54,6 @@ export default async function Claim({ searchParams }: PageProps) {
     logIdx[i] = parseInt(logIdx_str[i]);
   }
 
-
-  console.log("test",  {
-    provingAddress: connected,
-    facadeAddress: facadeAddress,
-    blockNumber: blockNumber,
-    txIdx: txIdxs,
-    logIdx: logIdx,
-  })
   const inputs: CircuitInputs = {
     "provingAddress": connected,
     "facadeAddress": facadeAddress,
