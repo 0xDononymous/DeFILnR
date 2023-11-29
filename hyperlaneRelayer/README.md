@@ -1,5 +1,7 @@
 # Hyperlane relayer deployment steps
 
+Note: You don't need to deploy hyperlane relayer if you are using standard chain
+
 ```
 hyperlane config create chain
 ```

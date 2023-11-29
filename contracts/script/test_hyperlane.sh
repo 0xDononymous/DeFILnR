@@ -1,0 +1,3 @@
+source .env
+# To locally test dispatch to another basegoerli, you need to set the trusted source to the eoa (this private key used)
+cast send 0x49cfd6Ef774AcAb14814D699e3F7eE36Fdfba932 "dispatch(uint32,bytes32,bytes)" 84531 0x000000000000000000000000a0503CC19E7f8961deEdC776d67DfDc6d79b699f 0000000000000000000000000000000000000000000000000000000000000003000000000000000000000000aab2f43e90acb860a562284d0a60c4a7e69bbd7f --rpc-url https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161 --value 0.01ether --private-key $PRIVATE_KEY

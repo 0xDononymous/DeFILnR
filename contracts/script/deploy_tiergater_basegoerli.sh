@@ -1,3 +1,3 @@
 source .env
-forge script script/Gater.s.sol:GaterScript --private-key $PRIVATE_KEY --broadcast --rpc-url $PROVIDER_URI_BASEGOERLI -vvvv
-cp out/Gater.sol/Gater.json ../webapp/src/lib/abi/Gater.json
+forge script script/TierGater.s.sol:TierGaterScript --private-key $PRIVATE_KEY --broadcast --rpc-url $PROVIDER_URI_BASEGOERLI -vvvv --verify --etherscan-api-key $ETHERSCAN_API_KEY
+cp out/TierGater.sol/TierGater.json ../webapp/src/lib/abi/TierGater.json
