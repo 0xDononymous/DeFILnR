@@ -10,12 +10,18 @@ import {IMembership} from "./interfaces/IMembership.sol";
 import {LibUserSegmentation} from "./libraries/LibUserSegmentation.sol";
 
 contract Membership is IMembership, AxiomV2Client, HyperlaneSender, Ownable {
+    enum Mode {
+        MaxDebt, // gearbox use case
+        Tier // general use case
+    }
+
     uint64 public callbackSourceChainId;
     uint32 public messageDestinationDomain;
     bytes32 public axiomCallbackQuerySchema;
     address public recipientAddress;
 
     uint32 public constant PROVING_INTERVAL = 1728000;
+    Mode public constant MODE = Mode.Tier;
 
     constructor(
         address _axiomV2QueryAddress,
@@ -62,20 +68,22 @@ contract Membership is IMembership, AxiomV2Client, HyperlaneSender, Ownable {
 
         // User segmentation
         // balance criteria should be used to determine the user level
-        //
-        // example of decoding when destination chain received this
-        // (uint16 leverageFactor, address callerAddr) =
-        //     abi.decode(_messageBody, (uint256, address));
         LibUserSegmentation.UserSegment _userSegment = LibUserSegmentation.segmentationByV2Usage(_openCATimes);
-        if (_userSegment == LibUserSegmentation.UserSegment.Tier1) {
-            bytes memory _messageBody = abi.encodePacked(uint256(5 ether), _provingAddress);
+
+        if (MODE == Mode.Tier) {
+            bytes memory _messageBody = abi.encodePacked(uint16(_userSegment), _provingAddress);
             dispatch(messageDestinationDomain, bytes32(uint256(uint160(recipientAddress))), _messageBody);
-        } else if (_userSegment == LibUserSegmentation.UserSegment.Tier2) {
-            bytes memory _messageBody = abi.encodePacked(uint256(20 ether), _provingAddress);
-            dispatch(messageDestinationDomain, bytes32(uint256(uint160(recipientAddress))), _messageBody);
-        } else if (_userSegment == LibUserSegmentation.UserSegment.Tier3) {
-            bytes memory _messageBody = abi.encodePacked(type(uint256).max, _provingAddress);
-            dispatch(messageDestinationDomain, bytes32(uint256(uint160(recipientAddress))), _messageBody);
+        } else if (MODE == Mode.MaxDebt) {
+            if (_userSegment == LibUserSegmentation.UserSegment.Tier1) {
+                bytes memory _messageBody = abi.encodePacked(uint256(5 ether), _provingAddress);
+                dispatch(messageDestinationDomain, bytes32(uint256(uint160(recipientAddress))), _messageBody);
+            } else if (_userSegment == LibUserSegmentation.UserSegment.Tier2) {
+                bytes memory _messageBody = abi.encodePacked(uint256(10 ether), _provingAddress);
+                dispatch(messageDestinationDomain, bytes32(uint256(uint160(recipientAddress))), _messageBody);
+            } else if (_userSegment == LibUserSegmentation.UserSegment.Tier3) {
+                bytes memory _messageBody = abi.encodePacked(type(uint256).max, _provingAddress);
+                dispatch(messageDestinationDomain, bytes32(uint256(uint160(recipientAddress))), _messageBody);
+            }
         }
     }
 
