@@ -1,10 +1,11 @@
 import BuildQuery from "@/components/claim/BuildQuery";
 import Title from "@/components/ui/Title";
 import autoAirdropJson from '@/lib/abi/AutonomousAirdrop.json';
-import { CircuitInputs, defaultInputs } from "@/lib/circuit";
+import { CircuitInputs, inputs } from "@/lib/circuit/circuit";
+import { bytes32 } from "@/lib/utils";
 import { publicClient } from "@/lib/viemClient";
 import { Constants } from "@/shared/constants";
-import { AxiomV2Callback, bytes32, getFunctionSelector } from "@axiom-crypto/core";
+//import { AxiomV2Callback, bytes32, getFunctionSelector } from "@axiom-crypto/core";
 import { useRouter } from 'next/navigation'
 
 interface PageProps {
@@ -52,6 +53,7 @@ export default async function Claim({ searchParams }: PageProps) {
     logIdx[i] = parseInt(logIdx_str[i]);
   }
 
+  /*
   const inputs: CircuitInputs = {
     "provingAddress": connected,
     "facadeAddress": facadeAddress,
@@ -64,6 +66,7 @@ export default async function Claim({ searchParams }: PageProps) {
     target: Constants.GOERLI_MEMBERSHIP_ADDR as `0x${string}`,
     extraData: "0x",
   }
+  */
 
   return (
     <>
@@ -75,8 +78,10 @@ export default async function Claim({ searchParams }: PageProps) {
       </div>
       <div className="flex flex-col gap-2 items-center">
         <BuildQuery
-          inputs={defaultInputs}
-          callback={callback}
+          inputs={inputs}
+          callbackAddress={Constants.GOERLI_MEMBERSHIP_ADDR}
+          callbackExtraData={bytes32(connected)}
+          refundee={connected}
           membershipAbi={autoAirdropJson.abi}
         />
       </div>

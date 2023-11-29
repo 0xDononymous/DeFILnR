@@ -7,11 +7,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "buildCircuit": "axiom compile src/lib/circuit/circuit.ts -o src/lib/circuit/build.json"
   },
   "dependencies": {
-    "@axiom-crypto/core": "^2.2.50",
-    "@axiom-crypto/react": "^0.0.10",
+    "@axiom-crypto/client": "0.1.1",
+    "@axiom-crypto/react": "0.1.1",
     "@types/node": "20.9.1",
     "@types/react": "18.2.37",
     "@types/react-dom": "18.2.7",

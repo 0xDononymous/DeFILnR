@@ -9,7 +9,7 @@ contract MembershipScript is Script {
     address public constant HYPERLANE_MAILBOX_ADDR = 0x49cfd6Ef774AcAb14814D699e3F7eE36Fdfba932;
     uint64 public constant CALLBACK_SOURCE_CHAIN_ID = 5;
     uint32 public constant MESSAGE_DESTINATION_DOMAIN = 7878;
-    bytes32 public constant QUERY_SCHEMA = 0xff6e82e9b1d55d7ef8ff127615e56be9abbf3d554bfc9a9d25d679d99ff02a92;
+    bytes32 public constant QUERY_SCHEMA = 0xaf8e20184ddcaa915d0026f75cfc9e4738f3eaac7b15db9457fcd8fbd9eaa45e;
 
     function setUp() public {}
 

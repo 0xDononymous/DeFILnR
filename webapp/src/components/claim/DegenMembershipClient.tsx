@@ -27,12 +27,13 @@ export default function DegenMembershipClient({
 
   const { address } = useAccount();
   const router = useRouter();
-  const { axiom, builtQuery, payment } = useAxiomCircuit();
+  const { builtQuery } = useAxiomCircuit();
   const [showExplorerLink, setShowExplorerLink] = useState(false);
 
-  const axiomQueryAbi = axiom.getAxiomQueryAbi();
+  //const axiomQueryAbi = axiom.getAxiomQueryAbi();
   const axiomQueryAddress = "0xBd5307B0Bf573E3F2864Af960167b24Aa346952b";//axiom.getAxiomQueryAddress();
 
+  /*
   const claimParams = [
     builtQuery?.sourceChainId,
     builtQuery?.dataQueryHash,
@@ -44,6 +45,7 @@ export default function DegenMembershipClient({
     address,
     builtQuery?.dataQuery
   ];
+  */
 
   // Prepare hook for the sendQuery transaction
   // const axiomContract = getContract({
@@ -54,10 +56,10 @@ export default function DegenMembershipClient({
 
   const { config } = usePrepareContractWrite({
     address: axiomQueryAddress as `0x${string}`,
-    abi: axiomQueryAbi,
+    abi: builtQuery?.abi,
     functionName: 'sendQuery',
-    args: claimParams,
-    value: BigInt(payment ?? 0),
+    args: builtQuery?.args,
+    value: BigInt(builtQuery?.value ?? 0),
   });
   
   const { data, isLoading, isSuccess, isError, write } = useContractWrite(config);

@@ -17,6 +17,19 @@
   resolved "https://registry.yarnpkg.com/@alloc/quick-lru/-/quick-lru-5.2.0.tgz#7bf68b20c0a350f936915fcae06f58e32007ce30"
   integrity sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==
 
+"@axiom-crypto/client@0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@axiom-crypto/client/-/client-0.1.1.tgz#c84ada07bd8f17637089f47c2abd3eaec6ca8136"
+  integrity sha512-WgiNTLy3Ih9yX2ZKomRjo9X1l9fHoGVSVe7dUWZKdnZhfgRqgBXwL7Y7Uh0JU12dT9/rt9h7tQQfgT61puyuhg==
+  dependencies:
+    "@axiom-crypto/core" "^2.2.50"
+    "@axiom-crypto/halo2-lib-js" "0.2.13-alpha.0"
+    "@axiom-crypto/halo2-wasm" "0.2.10"
+    "@axiom-crypto/tools" "^0.3.33"
+    commander "^11.1.0"
+    ethers "^6.8.1"
+    viem "^1.19.9"
+
 "@axiom-crypto/core@^2.2.50":
   version "2.2.50"
   resolved "https://registry.yarnpkg.com/@axiom-crypto/core/-/core-2.2.50.tgz#e78a9bb94f274cddc188551b07230a15d2bde234"
@@ -39,17 +52,31 @@
     ethers "^6.8.0"
     prettier "1.18.2"
 
+"@axiom-crypto/halo2-lib-js@0.2.13-alpha.0":
+  version "0.2.13-alpha.0"
+  resolved "https://registry.yarnpkg.com/@axiom-crypto/halo2-lib-js/-/halo2-lib-js-0.2.13-alpha.0.tgz#00c83a13c299b4b499a75248b339d17db7fcec61"
+  integrity sha512-YRG01+m9UKmDtufJ2akdkSahTe5/SmulK7NtvPsP65ZQ5FUnuSIyuIdZKNFiPZkte7RCWhdbfbX9Yq6yyBrNXg==
+  dependencies:
+    "@axiom-crypto/halo2-wasm" "0.2.10"
+    ethers "^6.8.0"
+    prettier "1.18.2"
+
+"@axiom-crypto/halo2-wasm@0.2.10":
+  version "0.2.10"
+  resolved "https://registry.yarnpkg.com/@axiom-crypto/halo2-wasm/-/halo2-wasm-0.2.10.tgz#a755a48cf06a461c2aa815171ae04e58e65fcf90"
+  integrity sha512-88VPIGeLUPYp+kIgKuJ4QBAKZ5SbwtJheBca5DuZdyb/9vGZ02gyeyQe6/2N7yVDIn3hupHhgfAc4mqm1/4ddw==
+
 "@axiom-crypto/halo2-wasm@0.2.7":
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/@axiom-crypto/halo2-wasm/-/halo2-wasm-0.2.7.tgz#67cec91b6110415c40ecfdd30b1eac9735a1121f"
   integrity sha512-pmgFCkCJUlFgh5NCLR59WpWIiBegNxBRAAlA2UxPMga1Pba02ynZgf6SW0tbQaezMiWUdTA9SfpeosovcNI6Yg==
 
-"@axiom-crypto/react@^0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@axiom-crypto/react/-/react-0.0.10.tgz#8002e4a8c0e12e45b5bbf8136f8de79b5ef4d4d2"
-  integrity sha512-dLBkZueafSvt+moeQrkgVG8MiAyAFKxjo4njqkk087WLus4tIR6CMGJcZs0rxJV7J3aRAKk80xtQgAWe66E57w==
+"@axiom-crypto/react@0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@axiom-crypto/react/-/react-0.1.1.tgz#e4a392a3d3e9606fc120285ca018f101cab2210e"
+  integrity sha512-ElFX/Itw2PCgxR0VUUai+4ArRu4hBURMKgd2FzBJb9mHX4ns+0JlGJz2Z19kp0FpuM+ePPw1UyrkzLG3S8aDlw==
   dependencies:
-    ethers "^6.8.1"
+    "@axiom-crypto/client" "0.1.1"
 
 "@axiom-crypto/tools@^0.3.33":
   version "0.3.33"
@@ -1949,6 +1976,11 @@ comlink@^4.4.1:
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/comlink/-/comlink-4.4.1.tgz#e568b8e86410b809e8600eb2cf40c189371ef981"
   integrity sha512-+1dlx0aY5Jo1vHy/tSsIGpSkN4tS9rZSW8FIhG0JH/crs9wwweswIo/POr451r7bZww3hFbPAKnTpimzL/mm4Q==
+
+commander@^11.1.0:
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-11.1.0.tgz#62fdce76006a68e5c1ab3314dc92e800eb83d906"
+  integrity sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==
 
 commander@^2.20.3:
   version "2.20.3"
@@ -5051,6 +5083,20 @@ viem@^1.0.0, viem@^1.19.1:
   version "1.19.3"
   resolved "https://registry.yarnpkg.com/viem/-/viem-1.19.3.tgz#896443d4f68005d68b9a1b5b61370ceb7bdf913b"
   integrity sha512-SymIbCO0nIq2ucna8R3XV4f/lEshKGLuhYU2f6O+OAbmE2ugBxBKx2axMKQrQML87nE0jb2qqqtRJka5SO/7MA==
+  dependencies:
+    "@adraffy/ens-normalize" "1.10.0"
+    "@noble/curves" "1.2.0"
+    "@noble/hashes" "1.3.2"
+    "@scure/bip32" "1.3.2"
+    "@scure/bip39" "1.2.1"
+    abitype "0.9.8"
+    isows "1.0.3"
+    ws "8.13.0"
+
+viem@^1.19.9:
+  version "1.19.9"
+  resolved "https://registry.yarnpkg.com/viem/-/viem-1.19.9.tgz#a11f3ad4a3323994ebd2010dbc659d1a2b12e583"
+  integrity sha512-Sf9U2x4jU0S/FALqYypcspWOGene0NZyD470oUripNhE0Ta6uOE/OgE4toTDVfRxov8qw0JFinr/wPGxYE3+HQ==
   dependencies:
     "@adraffy/ens-normalize" "1.10.0"
     "@noble/curves" "1.2.0"

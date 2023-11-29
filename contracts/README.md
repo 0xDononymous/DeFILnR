@@ -16,8 +16,10 @@ forge compile
 
 ## Deploy
 
-Run `./script/deploy_goerli.sh` to deploy to Goerli testnet (please ensure you have some Goerli testnet ETH before deploying).
-Run `./script/deploy_tiergater_basegoerli.sh` to deploy to basegoerli testnet (please ensure you have some basegoerli testnet ETH before deploying).
+1.  Set address in the Membership.s.sol
+2.  Run `./script/deploy_goerli.sh` to deploy to Goerli testnet (please ensure you have some Goerli testnet ETH before deploying).
+3.  Run `./script/deploy_tiergater_basegoerli.sh` to deploy to basegoerli testnet (please ensure you have some basegoerli testnet ETH before deploying).
+4.  Run `./script/set_state.sh` to set the smart contract address states to the deployed address.
 
 ## Update smart contract addresses
 
