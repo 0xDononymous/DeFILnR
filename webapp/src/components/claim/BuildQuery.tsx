@@ -34,7 +34,7 @@ export default function BuildQuery({
     setParams(inputs, callbackAddress, callbackExtraData, refundee);
   }, [setParams, inputs, callbackAddress, callbackExtraData, refundee]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     const buildQuery = async () => {
       console.log("buildQuery input", inputs)
       console.log("buildQuery callback", callbackAddress)
@@ -44,7 +44,17 @@ export default function BuildQuery({
       await build();
     };
     buildQuery();
-  }, [build, areParamsSet, route]);
+  }, [build, areParamsSet, route]);*/
+
+  useEffect(() => {
+    const buildQuery = async () => {
+      if (!areParamsSet) {
+        return;
+      }
+      await build();
+    };
+    buildQuery();
+  }, [build, areParamsSet]);
 
   if (!builtQuery) {
     return (
