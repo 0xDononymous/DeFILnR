@@ -19,3 +19,11 @@ pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+Compile Circuit before starting the server:
+
+Under webapp/
+
+```bash
+./src/lib/circuit/compile.sh
+```
