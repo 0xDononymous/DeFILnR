@@ -2,7 +2,7 @@
 
 source .env.local
 
-ALCHEMY_KEY=${NEXT_PUBLIC_ALCHEMY_KEY}
+ALCHEMY_KEY="4ADLfEmrv3lcd99Sz5k7ziCGrEGfhz5U"
 URL="https://eth-goerli.g.alchemy.com/v2/${ALCHEMY_KEY}"
 
-npx axiom compile ./src/components/axiom/circuit/circuit.ts -o ./src/components/axiom/circuit/build.json -p $URL
+npx axiom compile ./src/lib/circuit/circuit.ts -o ./src/lib/circuit/build.json -p $URL

@@ -53,7 +53,6 @@ export default async function Claim({ searchParams }: PageProps) {
     logIdx[i] = parseInt(logIdx_str[i]);
   }
 
-  /*
   const inputs: CircuitInputs = {
     "provingAddress": connected,
     "facadeAddress": facadeAddress,
@@ -61,12 +60,6 @@ export default async function Claim({ searchParams }: PageProps) {
     "txIdx": txIdxs,
     "logIdx": logIdx,
   }
-
-  const callback: AxiomV2Callback = {
-    target: Constants.GOERLI_MEMBERSHIP_ADDR as `0x${string}`,
-    extraData: "0x",
-  }
-  */
 
   return (
     <>

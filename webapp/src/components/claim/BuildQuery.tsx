@@ -5,7 +5,6 @@ import { CircuitInputs } from "../../lib/circuit/circuit";
 import { useEffect } from "react";
 import LoadingAnimation from "../ui/LoadingAnimation";
 import DegenMembershipClient from "./DegenMembershipClient";
-import { useRouter } from 'next/navigation'
 
 export default function BuildQuery({
   inputs,
@@ -20,7 +19,7 @@ export default function BuildQuery({
   refundee: string;
   membershipAbi: any[];
 }) {
-  const route = useRouter()
+  console.log(inputs)
   console.log("entering build query")
 
   const {
@@ -36,15 +35,18 @@ export default function BuildQuery({
 
   useEffect(() => {
     const buildQuery = async () => {
-      console.log("buildQuery input", inputs)
-      console.log("buildQuery callback", callbackAddress)
+      //console.log("buildQuery input", inputs)
+      //console.log("buildQuery callback", callbackAddress)
       if (!areParamsSet) {
         return;
       }
+      console.log(44)
+      //console.log(build)
       await build();
+      console.log(46)
     };
     buildQuery();
-  }, [build, areParamsSet, route]);
+  }, [build, areParamsSet]);
 
   if (!builtQuery) {
     return (
@@ -53,7 +55,7 @@ export default function BuildQuery({
       </div>
     );
   }
-  
+
   return (
     <DegenMembershipClient membershipAbi={membershipAbi} />
   );

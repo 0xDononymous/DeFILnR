@@ -5,6 +5,8 @@ import { AxiomCircuitProvider } from "@axiom-crypto/react";
 import { circuit } from "@/lib/circuit/circuit";
 import circuitBuild from "@/lib/circuit/build.json";
 
+console.log(circuitBuild)
+
 export default function AxiomProvider({
   children
 }: {
