@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
   webpack: (config) => {
     config.externals.push('pino-pretty', 'lokijs', 'encoding')
     return config
@@ -7,7 +8,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
 
-  async headers() {
+  /*async headers() {
     return [
       {
         source: '/(.*)',
@@ -23,7 +24,7 @@ const nextConfig = {
         ],
       },
     ]
-  },
+  },*/
 }
 
 module.exports = nextConfig
