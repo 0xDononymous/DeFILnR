@@ -1,6 +1,6 @@
 import BuildQuery from "@/components/claim/BuildQuery";
 import Title from "@/components/ui/Title";
-import autoAirdropJson from '@/lib/abi/AutonomousAirdrop.json';
+import membershipJson from '@/lib/abi/Membership.json';
 import { CircuitInputs, inputs } from "@/lib/circuit/circuit";
 import { bytes32 } from "@/lib/utils";
 import { publicClient } from "@/lib/viemClient";
@@ -80,9 +80,9 @@ export default async function Claim({ searchParams }: PageProps) {
         <BuildQuery
           inputs={inputs}
           callbackAddress={Constants.GOERLI_MEMBERSHIP_ADDR}
-          callbackExtraData={bytes32(connected)}
+          callbackExtraData={bytes32("0")}
           refundee={connected}
-          membershipAbi={autoAirdropJson.abi}
+          membershipAbi={membershipJson.abi}
         />
       </div>
     </>
