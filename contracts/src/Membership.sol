@@ -71,7 +71,7 @@ contract Membership is IMembership, AxiomV2Client, HyperlaneSender, Ownable {
         LibUserSegmentation.UserSegment _userSegment = LibUserSegmentation.segmentationByV2Usage(_openCATimes);
 
         if (MODE == Mode.Tier) {
-            bytes memory _messageBody = abi.encodePacked(uint16(_userSegment), _provingAddress);
+            bytes memory _messageBody = abi.encode(uint16(_userSegment), _provingAddress);
             dispatch(messageDestinationDomain, bytes32(uint256(uint160(recipientAddress))), _messageBody);
         } else if (MODE == Mode.MaxDebt) {
             if (_userSegment == LibUserSegmentation.UserSegment.Tier1) {
