@@ -24,7 +24,7 @@ contract MembershipScript is Script {
             QUERY_SCHEMA
         );
 
-        membership.deposit{value: 0.05 ether}();
+        membership.deposit{value: 0.03 ether}();
 
         vm.stopBroadcast();
     }
