@@ -20,7 +20,7 @@ export const inputs = {
   logIdx: [5, 3, 0, 0, 0, 0, 0, 0, 0, 0]
 };
 export type CircuitInputType = typeof inputs;
-export interface CircuitInputs extends CircuitInputType {}
+//export interface CircuitInputs extends CircuitInputType { }
 export interface CircuitValueInputs {
   provingAddress: CircuitValue;
   facadeAddress: CircuitValue;
@@ -75,7 +75,8 @@ export const circuit = async ({
     let receipt = getReceipt(blockNumber[i], txIdx[i]);
     let receiptLog = receipt.log(logIdx[i]);
     let onBehalfOf = (await receiptLog.topic(1, eventSchema)).toCircuitValue();
-
+    log(provingAddress)
+    log(onBehalfOf)
     checkEqual(provingAddress, onBehalfOf);
 
     // get the `to` field of the transaction

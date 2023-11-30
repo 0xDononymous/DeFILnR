@@ -1,12 +1,12 @@
 import BuildQuery from "@/components/claim/BuildQuery";
 import Title from "@/components/ui/Title";
 import autoAirdropJson from '@/lib/abi/AutonomousAirdrop.json';
-import { CircuitInputs, inputs } from "@/lib/circuit/circuit";
+import { CircuitValueInputs, inputs } from "@/lib/circuit/circuit";
 import { bytes32 } from "@/lib/utils";
 import { publicClient } from "@/lib/viemClient";
 import { Constants } from "@/shared/constants";
 //import { AxiomV2Callback, bytes32, getFunctionSelector } from "@axiom-crypto/core";
-import { useRouter } from 'next/navigation'
+import { constant } from "@axiom-crypto/client";
 
 interface PageProps {
   params: Params;
@@ -30,35 +30,26 @@ interface SearchParams {
 }
 
 export default async function Claim({ searchParams }: PageProps) {
-  const connected = searchParams?.connected;
-  const facadeAddress = searchParams?.facadeAddress;
-  const txHash = searchParams?.txHash;
-  let blockNumber_str = searchParams?.blockNumber;
-  let logIdx_str = searchParams?.logIdx;
+  const connected = searchParams?.connected as string ?? "";
+  const facadeAddress = searchParams?.facadeAddress as string ?? "";
+  const txHash = searchParams?.txHash as string ?? "";
+  const blockNumber_str = searchParams?.blockNumber as string[];
+  const logIdx_str = searchParams?.logIdx as string[];
 
-  let txs = [];
-  let txIdxs = [];
+  const txIdxs: Array<string> = [];
   for (let i = 0; i < txHash.length; i++) {
     const tx = await publicClient.getTransaction({
-      hash: txHash[i] as `0x${string}`,
-    });
-    txs.push(tx);
-    txIdxs.push(tx.transactionIndex);
+      hash: txHash[i] as any,
+    })
+    txIdxs.push(tx.transactionIndex.toString())
   }
 
-  let blockNumber = [];
-  let logIdx = [];
-  for (let i = 0; i < txHash.length; i++) {
-    blockNumber[i] = parseInt(blockNumber_str[i]);
-    logIdx[i] = parseInt(logIdx_str[i]);
-  }
-
-  const inputs: CircuitInputs = {
-    "provingAddress": connected,
-    "facadeAddress": facadeAddress,
-    "blockNumber": blockNumber,
-    "txIdx": txIdxs,
-    "logIdx": logIdx,
+  const inputs: CircuitValueInputs = {
+    provingAddress: constant(connected),
+    facadeAddress: constant(facadeAddress),
+    blockNumber: blockNumber_str.map((id: string) => constant(id)),
+    txIdx: txIdxs.map((id) => constant(id)),
+    logIdx: logIdx_str.map((id) => constant(id)),
   }
 
   return (
