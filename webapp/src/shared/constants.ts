@@ -9,7 +9,7 @@ export const Constants = Object.freeze({
   EVENT_SCHEMA:
     '0xfa2baf5d3eb95569f312f22477b246f9d4c50276f1cb3ded8e1aeadcbc07a763',
   ELIGIBLE_BLOCK_HEIGHT: 9000000,
-  GOERLI_MEMBERSHIP_ADDR: '0x574aBF92c19BfA75388d1B1D3a84E1FBb425da48',
+  GOERLI_MEMBERSHIP_ADDR: '0x153B51f96445f572e04d0b2A1F5634598bd56A16',
 
   GEARBOX_RPC:
     'https://anvil.gearbox.foundation/forks/bbf427c5-90ba-4dc1-84b2-9296fe1c3f2c',
